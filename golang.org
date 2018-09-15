@@ -25,13 +25,13 @@ import "fmt"
 func main() {
 	fmt.Printf("hello, world\n")
 }
-	 #+END_EXAMPLE
+	 #+END_SRC
       3. Do =cd $HOME/go/src/hello=
       4. go build
       5. ./hello
 	 #+BEGIN_EXAMPLE
 	 hello, world
-	 #+END_SRC
+	 #+END_EXAMPLE
 
 ** Uinstalling
    To remove an existing Go installation from your system delete the
