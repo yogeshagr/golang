@@ -17,8 +17,8 @@
    2. Test installation:
       1. Create $HOME/go/src/hello directory.
       2. Create a hello.go
-	 #+BEGIN_EXAMPLE
-	package main
+	 #+BEGIN_SRC golang
+Package main
 
 import "fmt"
 
@@ -31,7 +31,7 @@ func main() {
       5. ./hello
 	 #+BEGIN_EXAMPLE
 	 hello, world
-	 #+END_EXAMPLE
+	 #+END_SRC
 
 ** Uinstalling
    To remove an existing Go installation from your system delete the
@@ -113,7 +113,7 @@ func main() {
     A function can return any number of results. The =swap= function
     in the following example returns two strings.
     #+BEGIN_SRC golang
-    package main
+package main
 
 import "fmt"
 
@@ -140,7 +140,7 @@ func main() {
     functions.
 
     #+BEGIN_SRC golang
-    package main
+package main
 
 import "fmt"
 
