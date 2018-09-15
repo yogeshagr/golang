@@ -109,6 +109,25 @@ func main() {
    #+END_SRC
    Notice that the type comes after the variable name.
 
+*** Multiple results
+    A function can return any number of results. The =swap= function
+    in the following example returns two strings.
+    #+BEGIN_SRC golang
+    package main
+
+import "fmt"
+
+func swap(x , y string) (string, string) {
+  return y, x
+}
+
+func main() {
+  a, b := swap("hello", "world")
+  fmt.Println(a, b)
+}
+    #+END_SRC
+
+
 * Reference
   1. Golang installation: https://golang.org/doc/install
   2. Golang Tour https://tour.golang.org/welcome/1
