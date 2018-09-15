@@ -60,6 +60,15 @@ func main() {
    the import path. For instance, the =math/rand= package comprises
    files that begin with the statement =package rand=.
 
+** imports
+   Following code groups the imports into a parenthesized, "factored"
+   import statement.
+   #+BEGIN_SRC golang
+   import "fmt"
+   import "math"
+   #+END_SRC
+   It is good style to use the factored import statement.
+
 * Reference
   1. Golang installation: https://golang.org/doc/install
   2. Golang Tour https://tour.golang.org/welcome/1
