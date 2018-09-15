@@ -11,12 +11,12 @@
    1. Downlod the package file from https://golang.org/dl/, open it
       and follow the prompts to install the Go tools. The package
       installs the Go distribution to =/usr/local/go=. And the package
-      should put the =/usr/local/go/bin= directory in your PATH
+      should put the =/usr/local/go/bin= directory in your =PATH=
       environment variable. You may need to restart any open terminal
       sessions for the change to take effect.
    2. Test installation:
-      1. Create $HOME/go/src/hello directory.
-      2. Create a hello.go
+      - Create $HOME/go/src/hello directory.
+      - Create a hello.go
 	 #+BEGIN_SRC golang
 package main
 
@@ -26,9 +26,9 @@ func main() {
 	fmt.Printf("hello, world\n")
 }
 	 #+END_SRC
-      3. Do =cd $HOME/go/src/hello=
-      4. go build
-      5. ./hello
+      - Do =cd $HOME/go/src/hello=
+      - go build
+      - ./hello
 	 #+BEGIN_EXAMPLE
 	 hello, world
 	 #+END_EXAMPLE
