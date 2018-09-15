@@ -357,6 +357,32 @@ func main() {
     Try changing the initial value of =v= in the example code and
     observe how its type is affected.
 
+*** Constants
+    Constants are declared like variables, but with the =const= keyword.
+
+    Constants can be character, string, boolean, or numeric values.
+
+    Constants cannot be declared using the =:== syntax.
+
+    Example:
+    #+BEGIN_SRC golang
+package main
+
+import "fmt"
+
+const Pi = 3.14
+
+func main() {
+  const World = "world"
+  fmt.Println("Hello", World)
+  fmt.Println("Happy", Pi, "day")
+
+  const Truth = true
+  fmt.Println("Go rules?", Truth)
+
+}
+    #+END_SRC
+
 * Reference
   1. Golang installation: https://golang.org/doc/install
   2. Golang Tour https://tour.golang.org/welcome/1
