@@ -4,6 +4,40 @@
 #+Email: yogeshiiith@gmail.com
 
 * Introduction
- 
+  Here we will be learning golang.
+
+* Setup
+** Installation
+   1. Downlod the package file from https://golang.org/dl/, open it
+      and follow the prompts to install the Go tools. The package
+      installs the Go distribution to =/usr/local/go=. And the package
+      should put the =/usr/local/go/bin= directory in your PATH
+      environment variable. You may need to restart any open terminal
+      sessions for the change to take effect.
+   2. Test installation:
+      1. Create $HOME/go/src/hello directory.
+      2. Create a hello.go
+	 #+BEGIN_EXAMPLE
+	package main
+
+import "fmt"
+
+func main() {
+	fmt.Printf("hello, world\n")
+}
+	 #+END_EXAMPLE
+      3. Do =cd $HOME/go/src/hello=
+      4. go build
+      5. ./hello
+	 #+BEGIN_EXAMPLE
+	 hello, world
+	 #+END_EXAMPLE
+
+** Uinstalling
+   To remove an existing Go installation from your system delete the
+   go directory. This is usually =/usr/local/go=. Also remove the
+   =/etc/paths.d/go= file.
+
 * Reference
   1. Golang Tour https://tour.golang.org/welcome/1
+  2. How to write go code: https://golang.org/doc/code.html
