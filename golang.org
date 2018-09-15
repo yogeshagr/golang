@@ -18,7 +18,7 @@
       1. Create $HOME/go/src/hello directory.
       2. Create a hello.go
 	 #+BEGIN_SRC golang
-Package main
+package main
 
 import "fmt"
 
