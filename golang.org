@@ -130,16 +130,16 @@ func main() {
 
 *** Named return values
     Go's return values may be named. If so, they are treated as
-    variables defined at the top of the function. These names should
-    be used to document the meaning of the return values.
+    variables defined at the top of the function. 
+
+    These names should be used to document the meaning of the return
+    values.
 
     A =return= statement without arguments returns the named return
     values. This is known as "naked" return.
 
     Naked returns should be used only in short functions, as with the
-    following example. They can harm the readability in longer
-    functions.
-
+    following example. They can harm readability in longer functions.
     #+BEGIN_SRC golang
 package main
 
@@ -155,6 +155,26 @@ func main() {
   fmt.Println(split(17))
 }
     #+END_SRC
+
+** Variables
+   The =var= statement declares a list of variables; as in function
+   arguments list, the type is last.
+
+   A =var= statement can be at package or function level. We see both
+   in the following example.
+   #+BEGIN_SRC golang
+package main
+
+import "fmt"
+
+var c, python, java bool;
+
+func main() {
+  var i int;
+  fmt.Println(i, c, python, java)
+}
+
+   #+END_SRC
 
 * Reference
   1. Golang installation: https://golang.org/doc/install
