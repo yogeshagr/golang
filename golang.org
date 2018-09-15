@@ -176,12 +176,12 @@ func main() {
 
    #+END_SRC
 
-** Variables with initializers
-   A var declaration can include initializers, one per variable.
+*** Variables with initializers
+    A var declaration can include initializers, one per variable.
 
-   If an initializer is present, the type can be omitted; the variable
-   will take the type of the initializer.
-   #+BEGIN_SRC golang
+    If an initializer is present, the type can be omitted; the
+    variable will take the type of the initializer.
+    #+BEGIN_SRC golang
 package main
 
 import "fmt"
@@ -194,7 +194,27 @@ func main() {
   var i int;
   fmt.Println(i, d, e, f, c, python, java)
 }
-   #+END_SRC
+    #+END_SRC
+
+*** Short variable declarations
+    Inside a function, the =:== short assignment statement can be used
+    in place of a =var= declaration with implicit type.
+
+    Outside a function, every statement begins with a keyword (=var=,
+    =func=, and so on) and so the =:== construct is not available.
+    #+BEGIN_SRC golang
+package main
+
+import "fmt"
+
+func main() {
+  var i, j int = 1, 2
+  k := 3
+  c, python, java := true, false, "no!"
+
+  fmt.Println(i, j, k, c, python, java)
+}
+    #+END_SRC
 
 * Reference
   1. Golang installation: https://golang.org/doc/install
