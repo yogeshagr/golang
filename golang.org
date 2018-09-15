@@ -14,10 +14,11 @@
       should put the =/usr/local/go/bin= directory in your =PATH=
       environment variable. You may need to restart any open terminal
       sessions for the change to take effect.
-   2. Test installation:
-      - Create $HOME/go/src/hello directory.
-      - Create a hello.go
-	 #+BEGIN_SRC golang
+
+** Test installation
+   - Create $HOME/go/src/hello directory.
+   - Create a hello.go
+     #+BEGIN_SRC golang
 package main
 
 import "fmt"
@@ -25,13 +26,13 @@ import "fmt"
 func main() {
 	fmt.Printf("hello, world\n")
 }
-	 #+END_SRC
-      - Do =cd $HOME/go/src/hello=
-      - go build
-      - ./hello
-	 #+BEGIN_EXAMPLE
-	 hello, world
-	 #+END_EXAMPLE
+     #+END_SRC
+   - Do =cd $HOME/go/src/hello=
+   - go build
+   - ./hello
+     #+BEGIN_EXAMPLE
+     hello, world
+     #+END_EXAMPLE
 
 ** Uinstalling
    To remove an existing Go installation from your system delete the
