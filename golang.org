@@ -72,7 +72,7 @@ func main() {
    )
 
    func main(){
-       fmt.Println("Now you have %g problems.", math.Sqrt(7))
+       fmt.Printf("Now you have %g problems.\n", math.Sqrt(7))
    }
    #+END_SRC
    It is good style to use the factored import statement instead of
