@@ -69,6 +69,24 @@ func main() {
    #+END_SRC
    It is good style to use the factored import statement.
 
+** Functions
+   A function can take zero or more arguments. In the following
+   example, add takes two parameters of type =int=.
+   #+BEGIN_SRC golang
+   package main
+
+   import "fmt"
+
+   func add(x int, y int) int {
+       return x+y
+   }
+
+   func main(){
+       fmt.Println(add(42, 13))
+   }
+   #+END_SRC
+   Notice that the type comes after the variable name.
+
 * Reference
   1. Golang installation: https://golang.org/doc/install
   2. Golang Tour https://tour.golang.org/welcome/1
