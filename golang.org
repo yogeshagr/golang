@@ -502,6 +502,26 @@ func main() {
 }
      #+END_SRC
 
+**** Defer
+     A defer statement defers the execution of a function until the
+     surrounding funtion returns.
+
+     The defered call's arguments are evaluated immediately, but the
+     function call is not executed until the surrounding function
+     returns.
+
+     #+BEGIN_SRC golang
+package main
+
+import "fmt"
+
+func main() {
+  defer fmt.Println("world")
+
+  fmt.Println("hello")
+}     
+     #+END_SRC
+
 * Reference
   1. Golang installation: https://golang.org/doc/install
   2. Golang Tour https://tour.golang.org/welcome/1
