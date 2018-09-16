@@ -415,7 +415,9 @@ func main() {
   fmt.Println(sum)
 }   
     #+END_SRC
-    
+ 
+    There are no parentheses surrounding the three components of the
+    =for= statement and the braces ={ }= are always required.
 
 * Reference
   1. Golang installation: https://golang.org/doc/install
