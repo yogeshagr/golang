@@ -776,7 +776,7 @@ func main() {
       The lenght and capacity of a slice =s= can be obtained using the
       expressions =len(s)= and =cap(s)=.
 
-      #+BEGIN_SRC golang
+      #+BEGIN_SRC slice-len-cap.go
 package main
 
 import "fmt"
@@ -804,7 +804,7 @@ func printSlice(s []int){
 }
       #+END_SRC
       #+BEGIN_EXAMPLE
-      len=6 cap=6 [2 3 5 7 11 13]
+len=6 cap=6 [2 3 5 7 11 13]
 len=0 cap=6 []
 len=4 cap=6 [2 3 5 7]
 len=2 cap=4 [5 7]
