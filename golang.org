@@ -704,16 +704,17 @@ func main() {
 }
      #+END_SRC
 
-     Slices are like reference to arrays. A slice does not store any
-     data, it just describes a section of an underlying array.
+***** Pointers to slices
+      Slices are like reference to arrays. A slice does not store any
+      data, it just describes a section of an underlying array.
 
-     Changing the elements of a slice modifies the corresponding
-     elements of its underlying array.
+      Changing the elements of a slice modifies the corresponding
+      elements of its underlying array.
 
-     Other slices that share the same underlying array will see those
-     changes.
+      Other slices that share the same underlying array will see those
+      changes.
 
-     #+BEGIN_SRC golang
+      #+BEGIN_SRC golang
 package main
 
 import "fmt"
@@ -737,6 +738,34 @@ func main() {
 
 }
      #+END_SRC
+
+***** Slice literals
+      #+BEGIN_SRC golang
+package main
+
+import "fmt"
+
+func main() {
+  q := []int{2, 3, 5, 7, 11, 13}
+  fmt.Println(q)
+
+  r := []bool{true, false, true, true, false, true}
+  fmt.Println(r)
+
+  s := []struct{
+    i int
+    b bool
+  }{
+    {2, true},
+    {3, false},
+    {5, true},
+    {7, true},
+    {11, false},
+    {13, true},
+  }
+  fmt.Println(s)
+}
+      #+END_SRC
 
 * Reference
   1. Golang installation: https://golang.org/doc/install
