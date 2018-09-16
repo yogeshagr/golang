@@ -803,6 +803,12 @@ func printSlice(s []int){
   fmt.Printf("len=%d cap=%d %v\n", len(s), cap(s), s)
 }
       #+END_SRC
+      #+BEGIN_EXAMPLE
+      len=6 cap=6 [2 3 5 7 11 13]
+len=0 cap=6 []
+len=4 cap=6 [2 3 5 7]
+len=2 cap=4 [5 7]
+      #+END_EXAMPLE
 
 * Reference
   1. Golang installation: https://golang.org/doc/install
