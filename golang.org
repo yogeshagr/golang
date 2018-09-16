@@ -42,6 +42,7 @@ func main() {
 * Tour of Go
 ** Basics
 *** Packages, variables and functions
+    Learn the basic components of any Go program.
 **** Packages
      Every go program is made up of packages. Programs start running
      in package =main=. Following program is using the packages with
@@ -390,6 +391,8 @@ func main() {
       #+END_SRC
 
 *** Flow control statements: for, if, else, switch and defer
+    Learn how to control the flow of your code with conditionals,
+    loops, switches and defers.
 **** For
      Go has only one looping structure, the =for= loop.
 
@@ -523,6 +526,8 @@ func main() {
      #+END_SRC
 
 *** More types: structs, slices, and maps
+    Learn how to define types based on the existing ones: this lesson
+    covers structs, arrays, slices and maps.
 **** Pointers
      A points holds the memory address of a value.
 
@@ -564,6 +569,27 @@ func main() {
   fmt.Println(p)
 
 }     
+     #+END_SRC
+
+**** Structs
+     A =struct= is a collection of fields.
+
+     In the following example we are defining a type Vertex which is
+     of type struct.
+     #+BEGIN_SRC golang
+package main
+
+import "fmt"
+
+type Vertex struct {
+  X int
+  Y int
+}
+
+func main() {
+  fmt.Println(Vertex{2, 3})
+  fmt.Println(2)
+}
      #+END_SRC
 
 * Reference
