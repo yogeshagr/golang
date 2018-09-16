@@ -7,5 +7,18 @@ func main() {
   for i := 0; i < 10; i++ {
     sum += i
   }
+
   fmt.Println(sum)
+
+  for sum < 100 {
+    sum += sum
+  }
+
+  fmt.Println(sum)
+
+// infinite loop
+  for {
+
+  }
+
 }

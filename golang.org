@@ -390,19 +390,20 @@ func main() {
       #+END_SRC
 
 *** Flow control statements: for, if, else, switch and defer
-    Go has only one looping structure, the =for= loop.
+**** For
+     Go has only one looping structure, the =for= loop.
 
-    The basic for loop has three components separated by semicolons:
+     The basic for loop has three components separated by semicolons:
     
-    #+BEGIN_EXAMPLE
-    the init statement: executed before the first iteration
-    the condition statement: evaluated before every iteration
-    the post statement: executed at the end of every iteration
-    #+END_EXAMPLE
+     #+BEGIN_EXAMPLE
+     the init statement: executed before the first iteration
+     the condition statement: evaluated before every iteration
+     the post statement: executed at the end of every iteration
+     #+END_EXAMPLE
 
-    The variables declared in the for loop are visible only in the
-    scope of the =for= statement.
-    #+BEGIN_SRC golang
+     The variables declared in the for loop are visible only in the
+     scope of the =for= statement.
+     #+BEGIN_SRC golang
 package main
 
 import "fmt"
@@ -412,12 +413,25 @@ func main() {
   for i := 0; i < 10; i++ {
     sum += i
   }
+
   fmt.Println(sum)
+
+  for sum < 100 {
+    sum += sum
+  }
+
+  fmt.Println(sum)
+
+// infinite loop
+  for {
+
+  }
+
 }   
     #+END_SRC
  
-    There are no parentheses surrounding the three components of the
-    =for= statement and the braces ={ }= are always required.
+     There are no parentheses surrounding the three components of the
+     =for= statement and the braces ={ }= are always required.
 
 * Reference
   1. Golang installation: https://golang.org/doc/install
