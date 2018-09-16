@@ -676,6 +676,34 @@ func main() {
 }
      #+END_SRC
 
+**** Slices
+     An array has a fixed size. A slice, on the other hand, is a
+     dynamically-sized, flexible view into the elements of an
+     array. In practise, slices are much more common than arrays.
+
+     The type =[]T= is a slice with elements of type =T=.
+
+     A slice is formed by specifying two indices, a low and high
+     bound, separated by a colon.
+     #+BEGIN_EXAMPLE
+     a[low : high]
+     #+END_EXAMPLE
+
+     This selects a half-open range which includes the first element,
+     but excludes the last one.
+     #+BEGIN_SRC golang
+package main
+
+import "fmt"
+
+func main() {
+  primes := [6]int{2, 3, 5, 7, 11, 13}
+
+  var s []int = primes[1:4]
+  fmt.Println(s)
+}
+     #+END_SRC
+
 * Reference
   1. Golang installation: https://golang.org/doc/install
   2. Golang Tour https://tour.golang.org/welcome/1
