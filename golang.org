@@ -809,7 +809,7 @@ func main() {
   printSlice(s)
 
   // Drop its first two element
-  s = s[2:]
+  s = s[2:] // Note: capacity will become 4
   printSlice(s)
 
 }
@@ -824,6 +824,22 @@ len=0 cap=6 []
 len=4 cap=6 [2 3 5 7]
 len=2 cap=4 [5 7]
       #+END_EXAMPLE
+
+***** Nil slices
+      The zero value of a slice is =nil=.
+      #+BEGIN_SRC go
+package main
+
+import "fmt"
+
+func main() {
+  var s []int
+  fmt.Println(s, len(s), cap(s))
+  if s == nil {
+    fmt.Println("nil!")
+  }
+}     
+      #+END_SRC
 
 * Reference
   1. Golang installation: https://golang.org/doc/install
