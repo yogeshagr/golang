@@ -592,6 +592,39 @@ func main() {
 }
      #+END_SRC
 
+**** Pointers to structs
+     Struct fields can be accessed through a struct pointer.
+
+     To access the field =X= of a struct when we have the struct
+     pointer =p= we could write =(*p).X=. However, that notation is
+     cumbersome, so the language permits us instead to write just
+     =p.X=, without the explicit dereference.
+     #+BEGIN_SRC golang
+package main
+
+import "fmt"
+
+type Vertex struct {
+  X int
+  Y int
+}
+
+func main() {
+  fmt.Println(Vertex{2, 3})
+  fmt.Println(2)
+
+  v := Vertex{1, 2}
+  v.X = 4
+  fmt.Println(v.X)
+
+  p := &v
+  p.X = 1e9
+  fmt.Println(v)
+
+}
+     #+END_SRC
+
+
 * Reference
   1. Golang installation: https://golang.org/doc/install
   2. Golang Tour https://tour.golang.org/welcome/1
