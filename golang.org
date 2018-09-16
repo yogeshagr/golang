@@ -18,7 +18,7 @@
 ** Test installation
    - Create $HOME/go/src/hello directory.
    - Create a hello.go
-     #+BEGIN_SRC golang
+     #+BEGIN_SRC go
 package main
 
 import "fmt"
@@ -47,7 +47,7 @@ func main() {
      Every go program is made up of packages. Programs start running
      in package =main=. Following program is using the packages with
      imports paths "fmt" and "math/rand".
-     #+BEGIN_SRC golang
+     #+BEGIN_SRC go
      package main
 
      import (
@@ -67,7 +67,7 @@ func main() {
 **** imports
      Following code groups the imports into a parenthesized,
      "factored" import statement.
-     #+BEGIN_SRC golang
+     #+BEGIN_SRC go
      package main
 
      import (
@@ -79,10 +79,13 @@ func main() {
        	 fmt.Printf("Now you have %g problems.\n", math.Sqrt(7))
      }
      #+END_SRC
+     #+BEGIN_EXAMPLE
+     Now you have 2.6457513110645907 problems.
+     #+END_EXAMPLE
 
      It is good style to use the factored import statement instead of
      using multiple import statements.
-     #+BEGIN_SRC golang
+     #+BEGIN_SRC go
      import "fmt"
      import "math"
      #+END_SRC
@@ -99,7 +102,7 @@ func main() {
 **** Functions
      A function can take zero or more arguments. In the following
      example, add takes two parameters of type =int=.
-     #+BEGIN_SRC golang
+     #+BEGIN_SRC go
      package main
 
      import "fmt"
@@ -117,7 +120,7 @@ func main() {
 ***** Multiple results
       A function can return any number of results. The =swap= function
       in the following example returns two strings.
-      #+BEGIN_SRC golang
+      #+BEGIN_SRC go
 package main
 
 import "fmt"
@@ -145,7 +148,7 @@ func main() {
       Naked returns should be used only in short functions, as with
       the following example. They can harm readability in longer
       functions.
-    #+BEGIN_SRC golang
+    #+BEGIN_SRC go
 package main
 
 import "fmt"
@@ -167,7 +170,7 @@ func main() {
 
      A =var= statement can be at package or function level. We see
      both in the following example.
-     #+BEGIN_SRC golang
+     #+BEGIN_SRC go
 package main
 
 import "fmt"
@@ -186,7 +189,7 @@ func main() {
 
       If an initializer is present, the type can be omitted; the
       variable will take the type of the initializer.
-      #+BEGIN_SRC golang
+      #+BEGIN_SRC go
 package main
 
 import "fmt"
@@ -208,7 +211,7 @@ func main() {
       Outside a function, every statement begins with a keyword
       (=var=, =func=, and so on) and so the =:== construct is not
       available.
-      #+BEGIN_SRC golang
+      #+BEGIN_SRC go
 package main
 
 import "fmt"
@@ -238,7 +241,7 @@ func main() {
      Following example shows variables of several types, and also that
      variable declarations may be "factored" into blocks, as with
      import statements.
-     #+BEGIN_SRC golang
+     #+BEGIN_SRC go
 package main
 
 import (
@@ -275,7 +278,7 @@ func main() {
       "" (the empty string) for strings.
       #+END_EXAMPLE
       Example:
-      #+BEGIN_SRC golang
+      #+BEGIN_SRC go
 package main
 
 import "fmt"
@@ -293,21 +296,21 @@ func main() {
       The expression =T(v)= converts the value =v= to the type =T=.
    
       Some numeric conversions:
-      #+BEGIN_SRC golang
+      #+BEGIN_SRC go
       var i int = 42
       var f float64 = float64(i)
       var u uint = uint(f)
       #+END_SRC
 
       Or, put simply
-      #+BEGIN_SRC golang
+      #+BEGIN_SRC go
     i := 42
     f := float64(i)
     u := uint(f)
     #+END_SRC
    
       Example:
-      #+BEGIN_SRC golang
+      #+BEGIN_SRC go
 package main
 
 import (
@@ -335,7 +338,7 @@ func main() {
 
       When the right hand side of the declaration is typed, the new
       variable is of that same type:
-      #+BEGIN_SRC golang
+      #+BEGIN_SRC go
       var i int
       j := i // j is an int
       #+END_SRC
@@ -343,14 +346,14 @@ func main() {
       But when the right hand side contains an untyped numeric
       constant, the new variable may be an int, float64, or complex128
       depending on the precision of the constant:
-      #+BEGIN_SRC golang
+      #+BEGIN_SRC go
       i := 42  // int
       f := 3.142 // float
       g := 0.867 + 0.5i // complex128
       #+END_SRC
 
       Example:
-      #+BEGIN_SRC golang
+      #+BEGIN_SRC go
 package main
 
 import "fmt"
@@ -360,6 +363,9 @@ func main() {
   fmt.Printf("v is of type %T\n", v)
 }
       #+END_SRC
+      #+BEGIN_EXAMPLE
+      v is of type float64
+      #+END_EXAMPLE
     
       Try changing the initial value of =v= in the example code and
       observe how its type is affected.
@@ -372,7 +378,7 @@ func main() {
       Constants cannot be declared using the =:== syntax.
 
       Example:
-      #+BEGIN_SRC golang
+      #+BEGIN_SRC go
 package main
 
 import "fmt"
@@ -406,7 +412,7 @@ func main() {
 
      The variables declared in the for loop are visible only in the
      scope of the =for= statement.
-     #+BEGIN_SRC golang
+     #+BEGIN_SRC go
 package main
 
 import "fmt"
@@ -446,7 +452,7 @@ func main() {
 
      Variables declared by the statement are only in scope until the
      end of the =if=.
-     #+BEGIN_SRC golang
+     #+BEGIN_SRC go
 package main
 
 import (
@@ -484,7 +490,7 @@ func main() {
      =if - else= statements. It runs the first case whose value is
      equal to the condition expression.
 
-     #+BEGIN_SRC golang
+     #+BEGIN_SRC go
 package main
 
 import (
@@ -513,7 +519,7 @@ func main() {
      function call is not executed until the surrounding function
      returns.
 
-     #+BEGIN_SRC golang
+     #+BEGIN_SRC go
 package main
 
 import "fmt"
@@ -537,18 +543,18 @@ func main() {
      =var p *int=
 
      The =&= operator generates a pointer to its operand.
-     #+BEGIN_SRC golang
+     #+BEGIN_SRC go
      i := 42
      p = &i
      #+END_SRC
      
      The =*= operator denotes the pointer's underlying value.
-     #+BEGIN_SRC golang
+     #+BEGIN_SRC go
      fmt.Println(*p)
      *p = 21
      #+END_SRC
 
-     #+BEGIN_SRC golang
+     #+BEGIN_SRC go
 package main
 
 import "fmt"
@@ -576,7 +582,7 @@ func main() {
 
      In the following example we are defining a type Vertex which is
      of type struct.
-     #+BEGIN_SRC golang
+     #+BEGIN_SRC go
 package main
 
 import "fmt"
@@ -599,7 +605,7 @@ func main() {
      pointer =p= we could write =(*p).X=. However, that notation is
      cumbersome, so the language permits us instead to write just
      =p.X=, without the explicit dereference.
-     #+BEGIN_SRC golang
+     #+BEGIN_SRC go
 package main
 
 import "fmt"
@@ -623,8 +629,14 @@ func main() {
 
 }
      #+END_SRC
-     
-     #+BEGIN_SRC golang
+     #+BEGIN_EXAMPLE
+{2 3}
+2
+4
+{1000000000 2}
+     #+END_EXAMPLE
+
+     #+BEGIN_SRC go
 package main
 
 import "fmt"
@@ -645,19 +657,22 @@ func main() {
   fmt.Println(v1, v2, v3, p1, &p2, *p1)
 }
      #+END_SRC
+     #+BEGIN_EXAMPLE
+{1 2} {1 0} {0 0} &{1 2} 0x1133c90 {1 2}
+     #+END_EXAMPLE
      
 **** Arrays
      The type =[n]T= is an array of =n= values of type =T=.
 
      The expression
-     #+BEGIN_SRC golang
+     #+BEGIN_SRC go
 var a [10]int
      #+END_SRC
      declares a variable =a= as an array of ten integers.
 
      An array's length is part of its type, so arrays cannot be
      resized.
-     #+BEGIN_SRC golang
+     #+BEGIN_SRC go
 package main
 
 import "fmt"
@@ -691,7 +706,7 @@ func main() {
 
      This selects a half-open range which includes the first element,
      but excludes the last one.
-     #+BEGIN_SRC golang
+     #+BEGIN_SRC go
 package main
 
 import "fmt"
@@ -714,7 +729,7 @@ func main() {
       Other slices that share the same underlying array will see those
       changes.
 
-      #+BEGIN_SRC golang
+      #+BEGIN_SRC go
 package main
 
 import "fmt"
@@ -740,7 +755,7 @@ func main() {
      #+END_SRC
 
 ***** Slice literals
-      #+BEGIN_SRC golang
+      #+BEGIN_SRC go
 package main
 
 import "fmt"
