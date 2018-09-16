@@ -776,7 +776,7 @@ func main() {
       The lenght and capacity of a slice =s= can be obtained using the
       expressions =len(s)= and =cap(s)=.
 
-      #+BEGIN_SRC slice-len-cap.go
+      #+BEGIN_SRC go
 package main
 
 import "fmt"
