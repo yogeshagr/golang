@@ -9,4 +9,9 @@ func main() {
     fmt.Printf("2**%d = %d\n", i, v)
   }
 
+  // skip index by assigning to _.
+  for _, v := range a {
+    fmt.Println(v)
+  }
+
 }
