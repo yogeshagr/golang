@@ -933,8 +933,8 @@ func main() {
      access and assign to the referenced variables; in this sense the
      function is "bound" to the variables.
      
-     For example, the adder function returns a closure. Each closure
-     is bound to its own sum variable.
+     In the following example, the adder function returns a
+     closure. Each closure is bound to its own sum variable.
 
      #+BEGIN_SRC golang
 package main
