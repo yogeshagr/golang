@@ -960,7 +960,7 @@ func main() {
 }    
      #+END_SRC
 
-     Another example of fibonacci closure:
+     Another example: Fibonacci closure:
      #+BEGIN_SRC go
 package main
 
