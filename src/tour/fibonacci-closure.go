@@ -13,9 +13,24 @@ func fibonacci() func() int {
   }
 }
 
+func fibonacci2() func() int {
+    first, second := 0, 1
+    return func() int {
+        ret := first
+        first, second = second, first + second
+        return ret
+    }
+}
+
 func main() {
   f := fibonacci()
   for i := 0; i < 10; i++ {
     fmt.Println(f())
   }
+
+  f2 := fibonacci2()
+  for i := 0; i < 10; i++ {
+    fmt.Println(f2())
+  }
+
 }
