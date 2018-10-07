@@ -1223,6 +1223,14 @@ func (f float64) Abs() float64 {
     cannot define new methods on non-local type float64
     #+END_EXAMPLE
 
+*** Interfaces are implemented implicitly
+    A type implements an interface by implementing its methods. There
+    is no explicit declaration of intent, no "implements" keyword.
+
+    Implicit interfaces decouple the definition of an interface from
+    its implementation, which could then appear in any package without
+    prearrangement.
+
 * Reference
   1. Golang installation: https://golang.org/doc/install
   2. Golang Tour https://tour.golang.org/welcome/1
