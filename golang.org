@@ -1159,8 +1159,69 @@ func main() {
   fmt.Println(v, p)
   fmt.Println(reflect.TypeOf(v))
   fmt.Println(reflect.TypeOf(p))
-}    
+}
     #+END_SRC
+
+*** Interfaces
+    An =interface= type is defined as a set of method signatures.
+
+    A value of interface type can hold any value that implements those
+    methods.
+
+    #+BEGIN_SRC go
+package main
+
+import (
+  "fmt"
+  "math"
+)
+
+type Abser interface {
+  Abs() float64
+}
+
+func main() {
+  var a Abser
+  v := Vertex{3, 4}
+  f := Myfloat(-math.Sqrt2)
+
+  a = f // a MyFloat implements Abser
+  a = &v // a *Vertex implements Abser
+
+  fmt.Println(a.Abs())
+}
+
+type Myfloat float64
+
+func (f Myfloat) Abs() float64 {
+  if f < 0 {
+    return float64(-f)
+  }
+  return float64(f)
+}
+
+type Vertex struct {
+  X, Y float64
+}
+
+func (v *Vertex) Abs() float64 {
+  return math.Sqrt(v.X*v.X + v.Y*v.Y)
+} 
+    #+END_SRC
+
+    Note: We cannot define new methods on non-local type. For example
+    the following code will throw error
+    #+BEGIN_SRC go
+func (f float64) Abs() float64 {
+  if f < 0 {
+    return float64(-f)
+  }
+  return float64(f)
+}   
+    #+END_SRC
+    #+BEGIN_EXAMPLE
+    cannot define new methods on non-local type float64
+    #+END_EXAMPLE
 
 * Reference
   1. Golang installation: https://golang.org/doc/install
