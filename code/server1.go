@@ -17,7 +17,6 @@ var mu sync.Mutex
 var count int
 
 func handler(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("handler called")
 	mu.Lock()
 	count++
 	mu.Unlock()
