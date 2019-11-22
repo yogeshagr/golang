@@ -14,4 +14,8 @@ func main() {
 	var y byte = 10
 
 	fmt.Println(x &^ y) // AND NOT
+
+	var a uint = 0
+	fmt.Println(a - 1)
+
 }
