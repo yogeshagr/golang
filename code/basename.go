@@ -28,4 +28,5 @@ func main(){
 	fmt.Println(basename("c.d.go")) 		// "c.d"
 	fmt.Println(basename("abc"))    		// "abc"
 	fmt.Println(basename("a/b/c/"))    	// ""
+	fmt.Println(basename("a/b.c.c./c.go"))
 }
