@@ -3,9 +3,7 @@
 
 package main
 
-import (
-	"fmt"
-	)
+import "fmt"
 
 func basename(s string) string {
 	// Discard last '/' and everything before.
