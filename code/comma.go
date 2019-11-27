@@ -5,7 +5,7 @@ package main
 
 import "fmt"
 
-func comma(s string) string {
+func numeral(s string) string {
 	a := ""
 	i := len(s)
 	for ; i > 3; i -= 3 {
@@ -16,6 +16,6 @@ func comma(s string) string {
 }
 
 func main(){
-	fmt.Println("12345 =", comma("12345"))
-	fmt.Println("1234567 =", comma("1234567"))
+	fmt.Println("12345 =", numeral("12345"))
+	fmt.Println("1234567 =", numeral("1234567"))
 }
