@@ -3,7 +3,10 @@
 
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 func numeral(s string) string {
 	n := len(s)
@@ -18,4 +21,11 @@ func main(){
 	fmt.Println("1234567 =", numeral("1234567"))
 	fmt.Println("1234 =", numeral("1234"))
 	fmt.Println("123 =", numeral("123"))
+	s := "1234.23"
+	if strings.Contains(s, ".") {
+		index := strings.Index(s, ".")
+		fmt.Println(s, numeral(s[:index]) + s[index:])
+	} else {
+		fmt.Println(s, numeral(s))
+	}
 }
