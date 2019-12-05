@@ -1,3 +1,5 @@
+// Computes number of bits different between two hashes
+
 package main
 
 import (
