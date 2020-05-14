@@ -2,8 +2,8 @@
 package main
 
 import (
-	"os"
 	"fmt"
+	"os"
 )
 
 func main() {
