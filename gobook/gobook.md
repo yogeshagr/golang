@@ -14,3 +14,14 @@ execution of the program begins.
 - A function declaration consists of the keyword func, the name of the function,
 a parameter list, a result list, and the body of the function - the statements
 that define what id does - enclosed in braces.
+
+- Variable can be declared in any of the following forms:
+```
+s := "" // can only be used within a function
+var s string // default initialization to the zero value for strings
+var s = ""
+var s string = ""
+```
+In practice, you should generally use one of the first two forms, with explicit
+initialization to say that the initial value is important and implicit
+initialization to say that the initial value doesn't matter.
