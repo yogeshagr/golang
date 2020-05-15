@@ -33,7 +33,6 @@ func main() {
 	}
 }
 
-
 func isFileIncluded(file string, files []string) bool {
 	for _, f := range files {
 		if file == f {
@@ -49,7 +48,7 @@ func countLines(f *os.File, counts map[string]int, foundIn map[string][]string) 
 	for input.Scan() {
 		line = input.Text()
 		counts[line]++
-		if (! isFileIncluded(f.Name(), foundIn[line])) {
+		if !isFileIncluded(f.Name(), foundIn[line]) {
 			foundIn[line] = append(foundIn[line], f.Name())
 		}
 	}
