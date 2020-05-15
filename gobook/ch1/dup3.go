@@ -1,11 +1,11 @@
-// Dup3 prints count and text of lines that appear more than once. It reads
-// in batches from stdin or from a list of files.package ch1
+// Dup3 prints count and text of lines that appear more than once in the named
+// input files
 
 package main
 
 import (
-	"io/ioutil"
 	"fmt"
+	"io/ioutil"
 	"os"
 	"strings"
 )
@@ -14,7 +14,7 @@ func main() {
 	counts := make(map[string]int)
 	for _, filename := range os.Args[1:] {
 		data, err := ioutil.ReadFile(filename)
-		if err!= nil {
+		if err != nil {
 			fmt.Fprintf(os.Stderr, "dup3: %v\n", err)
 			continue
 		}
