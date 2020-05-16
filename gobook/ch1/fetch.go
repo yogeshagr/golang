@@ -4,9 +4,9 @@ package main
 
 import (
 	"fmt"
-	"os"
 	"io/ioutil"
 	"net/http"
+	"os"
 )
 
 func main() {
