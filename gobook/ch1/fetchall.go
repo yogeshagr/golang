@@ -4,8 +4,8 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"os"
 	"strings"
