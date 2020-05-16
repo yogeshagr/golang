@@ -32,3 +32,19 @@ initialization to say that the initial value doesn't matter.
 mechanism that allows one goroutine to pass values of a specified type to
 another goroutine. The function main runs in a goroutine and the go statement
 creates additional goroutines.
+
+- The following if condition:
+```
+err := r.ParseForm()
+if err != nil {
+		log.Print(err)
+}
+```
+could be written as:
+```
+if err := r.ParseForm(); err != nil {
+		log.Print(err)
+}
+```
+Combining the statements is shorter and reduces the scope of the variable err,
+which is a good practice.
