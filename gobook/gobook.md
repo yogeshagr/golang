@@ -1,5 +1,7 @@
 # The Go Programming Language
 
+## Ch1
+
 - Package: Go code is organized into packages, which are similar to libraries or modules
 in other languages. A package consits of one or more .go source files in a
 single directory that define what the package does. Each source file begins with
@@ -25,3 +27,8 @@ var s string = ""
 In practice, you should generally use one of the first two forms, with explicit
 initialization to say that the initial value is important and implicit
 initialization to say that the initial value doesn't matter.
+
+- A goroutine is a conurrent function execution. A channel is a communication
+mechanism that allows one goroutine to pass values of a specified type to
+another goroutine. The function main runs in a goroutine and the go statement
+creates additional goroutines.
