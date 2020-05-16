@@ -5,8 +5,8 @@ package main
 import (
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
+	"net/url"
 	"os"
 	"strings"
 	"time"
@@ -27,20 +27,30 @@ func main() {
 	fmt.Printf("%.2fs elapsed\n", time.Since(start).Seconds())
 }
 
-func fetch(url string, ch chan<- string) {
+func fetch(uri string, ch chan<- string) {
 	start := time.Now()
-	resp, err := http.Get(url)
+	resp, err := http.Get(uri)
 	if err != nil {
 		ch <- fmt.Sprint(err)
 		return
 	}
 
-	nbytes, err := io.Copy(ioutil.Discard, resp.Body)
-	resp.Body.Close()
+	f, err := os.Create(url.QueryEscape(uri))
 	if err != nil {
-		ch <- fmt.Sprintf("while reading %s: %v", url, err)
+		ch <- fmt.Sprint(err)
+	}
+
+	nbytes, err := io.Copy(f, resp.Body)
+	resp.Body.Close()
+
+	if closeError := f.Close(); err == nil {
+		err = closeError
+	}
+
+	if err != nil {
+		ch <- fmt.Sprintf("while reading %s: %v", uri, err)
 		return
 	}
 	secs := time.Since(start).Seconds()
-	ch <- fmt.Sprintf("%.2fs %7d %s", secs, nbytes, url)
+	ch <- fmt.Sprintf("%.2fs %7d %s", secs, nbytes, uri)
 }
