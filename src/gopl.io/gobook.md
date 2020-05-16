@@ -33,7 +33,9 @@ mechanism that allows one goroutine to pass values of a specified type to
 another goroutine. The function main runs in a goroutine and the go statement
 creates additional goroutines.
 
-- The following if condition:
+- Go allows a simple statement such as a local variable declaration to preceded
+the if condition, which is particularly useful for error handling as in this
+example:
 ```
 err := r.ParseForm()
 if err != nil {
