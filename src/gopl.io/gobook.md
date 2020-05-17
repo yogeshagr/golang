@@ -98,3 +98,6 @@ that is, interior capital letters are preferred over interior underscores. The
 letters of acronyms and initialisms like ASCII and HTML are always rendered in
 the same case, so a function might be called html-Escape, HTMLEscape, or
 escapeHTML, but not escapeHtml.
+
+### Declarations
+- There are four major kinds of declarations: var, const, type, and func.
