@@ -143,3 +143,32 @@ multiple values:
 ```
 var f, err = os.Open(name)
 ```
+
+#### Variable Declaration
+- Within a function, an alternate form called a short variable declaration may
+be used to declare and initialize local variables. It takes the form
+```
+name := expression
+```
+and the type of name is determinted by the type of expression.
+
+- A "var" declaration tends to be reserved for local variables that need an
+explicit type that differs from that of the initializer expression, or for when
+the variable will be assigned a value later and its initial value is
+unimportant.
+```
+i := 100 // an int
+var boiling float64 = 100 // a float64
+```
+```
+var names []string
+var err error
+var p Point
+```
+
+- A short variable declaration must declare at least one new variable, however,
+so this code will not compile.
+```
+f, err := os.Open(infile)
+f, err := os.Create(outfile) // compile error: no new variables
+```
