@@ -61,6 +61,7 @@ used in statements whose execution order is determined by control-flow
 statements like if and for. Statements are grouped into functions for isolation
 and reuse. Functions are gathered into source files and packages.
 
+### Names
 - Go has 25 keywords like "if" and "switch" that may be used only where the
 syntax permits; they can't be used as names.
 ```
@@ -88,3 +89,12 @@ Functions:    make      len   cap   new   append    copy    close   delete
 These names are not reserved, so you may use them in declarations. At some
 places redeclaring one of them makes sense, but beware of the potential for
 confusion.
+
+- There is no limit on name length. Generally, the larger the scope of a name,
+the longer and more meaningful it should be.
+
+- Go programmers use "camel case" when formatting names by combining words;
+that is, interior capital letters are preferred over interior underscores. The
+letters of acronyms and initialisms like ASCII and HTML are always rendered in
+the same case, so a function might be called html-Escape, HTMLEscape, or
+escapeHTML, but not escapeHtml.
