@@ -70,3 +70,21 @@ chan        else            goto      package       switch
 const       fallthrough     if        range         type
 continue    for             import    return        var
 ```
+
+- In addition, there are about three dozen predeclared names like int and true
+for built-in contants, types, and functions:
+```
+Constants:    true    false   iota        nil
+
+Types:        int       int8      int16         int32       int64
+              uint      uint8     uint16        uint32      uint64 uintptr
+              float32   float64   complex128    complex64
+              bool      byte      rune          string       error
+
+Functions:    make      len   cap   new   append    copy    close   delete
+              complex   real  imag
+              panic     recover
+```
+These names are not reserved, so you may use them in declarations. At some
+places redeclaring one of them makes sense, but beware of the potential for
+confusion.
