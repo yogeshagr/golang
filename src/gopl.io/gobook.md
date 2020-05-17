@@ -102,6 +102,14 @@ escapeHTML, but not escapeHtml.
 ### Declarations
 - There are four major kinds of declarations: var, const, type, and func.
 
+- If an entity is declared within a function, it is local to that function. If
+declared outside of a function, however, it is visible in all files of the
+package to which it belongs. The case of the first letter of a name determines
+its visibility across package boundaries. If the name begins with an upper-case
+letter, it is exported, which means that it is visible and accessible outside of
+its own package and may be referred to by other parts of the program, as with
+Printf in the fmt package. Package names themselves are always in lower case.
+
 ### Variables
 - A var declaration creates a variable of a particular type, attaches a name to
 it, and sets its initial value. Each declaraion has the general form
