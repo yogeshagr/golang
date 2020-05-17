@@ -1,6 +1,6 @@
 # The Go Programming Language
 
-## Ch1
+## Ch1: Tutorial
 
 - Package: Go code is organized into packages, which are similar to libraries or modules
 in other languages. A package consits of one or more .go source files in a
@@ -50,3 +50,13 @@ if err := r.ParseForm(); err != nil {
 ```
 Combining the statements is shorter and reduces the scope of the variable err,
 which is a good practice.
+
+## ch2: Program Structure
+
+- In Go, as in any other programming language, one builds large programs from a
+small set of basic constructs. Variables store values. Simple expressions are
+combined into larger ones with operations like addition and subtraction. Basic
+types are collected into aggregates like arrays and structs. Expressions are
+used in statements whose execution order is determined by control-flow
+statements like if and for. Statements are grouped into functions for isolation
+and reuse. Functions are gathered into source files and packages.
