@@ -101,3 +101,37 @@ escapeHTML, but not escapeHtml.
 
 ### Declarations
 - There are four major kinds of declarations: var, const, type, and func.
+
+### Variables
+- A var declaration creates a variable of a particular type, attaches a name to
+it, and sets its initial value. Each declaraion has the general form
+```
+var name type = expression
+```
+Either the "type" or the "=" expression part may be omitted, but not both. If
+the type is omitted, it is determined by the initializer expression. If the
+expression is omitted, the initial value is the zero value for the type, which
+is 0 for numbers, false for booleans, "" for strings, and nil for interfaces
+and reference types (slice, pointer, map, channel, function). The zero value of
+an aggregate type like an array or a struct has the zero value of all of its
+elements or fields.
+
+The zero-value mechanism ensures that a variable always holds a well-defined
+value of its type; in Go there is no such thing as an uninitialized variable.
+This simplifies code and often ensures sensible behavior of boundary conditions
+without extra work.
+
+It is possible to declare and optionally initialize a set of variables in a
+single declarations, with a matching list of expressions.
+```
+var i, j, k int
+var b, f, s = true, 2.3, "four"
+```
+
+Initializers may be literal values or arbitrary expressions.
+
+A set of variables can also be initialized by calling a function that returns
+multiple values:
+```
+var f, err = os.Open(name)
+```
