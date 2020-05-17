@@ -30,7 +30,7 @@ initialization to say that the initial value doesn't matter.
 
 - A goroutine is a conurrent function execution. A channel is a communication
 mechanism that allows one goroutine to pass values of a specified type to
-another goroutine. The function main runs in a goroutine and the go statement
+another goroutine. The function main runs in a goroutine and the "go" statement
 creates additional goroutines.
 
 - Go allows a simple statement such as a local variable declaration to preceded
@@ -60,3 +60,13 @@ types are collected into aggregates like arrays and structs. Expressions are
 used in statements whose execution order is determined by control-flow
 statements like if and for. Statements are grouped into functions for isolation
 and reuse. Functions are gathered into source files and packages.
+
+- Go has 25 keywords like "if" and "switch" that may be used only where the
+syntax permits; they can't be used as names.
+```
+break       default         func      interface     select
+case        defer           go        map           struct
+chan        else            goto      package       switch
+const       fallthrough     if        range         type
+continue    for             import    return        var
+```
