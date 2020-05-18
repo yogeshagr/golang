@@ -172,3 +172,42 @@ so this code will not compile.
 f, err := os.Open(infile)
 f, err := os.Create(outfile) // compile error: no new variables
 ```
+
+### Pointers
+- A pointer value is the address of a variable. A pointer is thus the location
+at which a value is stored.
+
+- If a variable is declared "var x int", the expression &x ("address of x")
+yields a pointer to an integer variable, that is, a value of type *int, which is
+pronounced "pointer to int". If this value is called p, we say "p points to x",
+or equivalentaly "p contains the address of x". The variable to which p points
+is written *p. The expression *p yields the value of that variable, an int.
+```
+x := 1
+p := &x         // p, of type *int, points to x
+fmt.Println(*p) // "1"
+*p = 2          // equivalent to x = 2
+fmt.Println(x)  // "2"
+```
+
+- The zero value for a pointer of any type is nil.
+
+- Pointers are comparable; two pointers are equal if and only if they point to
+the same variable or both are nil.
+```
+var x, y int
+fmt.Println(&x == &x, &x == &y, &x == nil)  // "true false false"
+```
+
+- It is perfectly safe for a function to return the address of a local variable.
+```
+var p = f()
+func f() *int {
+  v := 1
+  return &v
+}
+```
+Each call of f returns a distinct value:
+```
+fmt.Println(f() == f()) // "false"
+```
