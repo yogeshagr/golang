@@ -211,3 +211,18 @@ Each call of f returns a distinct value:
 ```
 fmt.Println(f() == f()) // "false"
 ```
+
+#### New function
+- New is only a syntactic convenience, not a fundamental notion. The two newInt
+functions below have identical behaviors:
+```
+func newInt() *int {
+  return new(int)
+}
+```
+```
+func newInt() *int {
+  var dummy int
+  return &dummy
+}
+```
