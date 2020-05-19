@@ -212,7 +212,7 @@ Each call of f returns a distinct value:
 fmt.Println(f() == f()) // "false"
 ```
 
-#### New function
+### New function
 - New is only a syntactic convenience, not a fundamental notion. The two newInt
 functions below have identical behaviors:
 ```
@@ -227,7 +227,7 @@ func newInt() *int {
 }
 ```
 
-#### Lifetime of a variable
+### Lifetime of a variable
 - The variable lives on until it becomes unreachable.
 
 - A compiler may choose to allocate local variables on the heap or on the stack
@@ -259,3 +259,41 @@ memory allocation.
 
 - To write efficient programs you still need to be aware of the lifetime of
 variables.
+
+### Type declaration
+- A type declaration defines a new named type that has the same underlying type
+as an existing type.
+
+- The named type provides a way to separate different and perhaps incompatible
+uses of the underlying type so that they can't be mixed unintentionally.
+```
+type name underlying-type
+```
+For example:
+```
+package tempconv
+
+import "fmt"
+
+type Celsius float64
+type Fahrenheit float64
+
+const (
+  AbsoluteZeroC Celsius = -273.15
+  FreezingC     Celsius = 0
+  BoilingC      Celsisu = 100
+)
+
+func CToF(c Celsius) Fahrenheit { return Fahrenheit(c*9/5 + 32)}
+
+func FToC(f Fahrenheit) Celsius { return Celsius((f - 32) * 5 / 9)}
+```
+This package defines two types, Celsius and Fahrenheit, for the two units of
+temperature. Even though they have the same underlying type, float64, they are
+not the same type, so they cannot be compared or combined in arithmetic
+expressions. Distinguishing the types makes it possible to avoid errors like
+inadvertently combining temperatures in the two different scales.
+
+- A conversion from one type to another is allowed if both have the same
+underlying type, or if both are the unnamed pointer types that point to
+variables of the same underlying type.
