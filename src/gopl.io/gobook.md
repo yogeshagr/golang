@@ -262,10 +262,9 @@ variables.
 
 ### Type declaration
 - A type declaration defines a new named type that has the same underlying type
-as an existing type.
-
-- The named type provides a way to separate different and perhaps incompatible
-uses of the underlying type so that they can't be mixed unintentionally.
+as an existing type. The named type provides a way to separate different and
+perhaps incompatible uses of the underlying type so that they can't be mixed
+unintentionally.
 ```
 type name underlying-type
 ```
@@ -296,4 +295,25 @@ inadvertently combining temperatures in the two different scales.
 
 - A conversion from one type to another is allowed if both have the same
 underlying type, or if both are the unnamed pointer types that point to
-variables of the same underlying type.
+variables of the same underlying type; these conversions change the type but not
+the representation of the value. If x is assignable to T, a conversion is
+permitted but is usually redundant.
+
+- Conversions are also allowed between numeric types, and between string and
+some slice types. These conversions may change the representation of the value.
+For example converting a floating-point number to an integer discards any
+fractional part, and converting to string to a []byte slice allocates a copy of
+the string data. In any case, a conversion never fails at run time.
+
+- Named types also make it possible to define new behaviors for values of the
+type. These behaviors are expressed as a set of functions associated with the
+type, called the type's methods. The declaration below, in which the Celsius
+parameter c appears before the function name, associates with the Celsius type
+a method named String that returns c's numeric value.
+```
+func (c Celsius) String() string { return fmt.Sprintf("%gC", c) }
+```
+```
+c := FToC(212.0)
+fmt.Println(c.String())
+```
