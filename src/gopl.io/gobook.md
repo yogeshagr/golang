@@ -226,3 +226,36 @@ func newInt() *int {
   return &dummy
 }
 ```
+
+#### Lifetime of a variable
+- The variable lives on until it becomes unreachable.
+
+- A compiler may choose to allocate local variables on the heap or on the stack
+but, perhaps surprisingly, this choice is not determined by whether var or new
+was used to declare the variable.
+```
+var global *int
+func f() {
+  var x int
+  x = 1
+  global = &x
+}
+```
+```
+func g() {
+  y := new(int)
+  *y = 1
+}
+```
+Here, x must be heap-allocated because it is still reachable from the vraiable
+global after f has returned, despite being declared as a local variable; we say
+`x escapes from f`. Conversely, when g returns, the variable *y becomes
+unreachable and can be recycled. Since *y does not escape from g, it's safe for
+the compiler to allocate *y on the stack, even though it was allocated with new.
+In any case, the notion of escaping is not something that you need to worry
+about in order to write correct code, though it's good to keep in mind during
+performance optimization, since each variable that escapes requires an extra
+memory allocation.
+
+- To write efficient programs you still need to be aware of the lifetime of
+variables.
