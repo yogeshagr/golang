@@ -317,3 +317,15 @@ func (c Celsius) String() string { return fmt.Sprintf("%gC", c) }
 c := FToC(212.0)
 fmt.Println(c.String())
 ```
+
+### Imports
+- Within a Go program, every package is identified by a unique string called its
+import path. These are the strings that appear in an import declaration like
+"gopl.io/ch2/tempconv". The language specification doesn't define where these
+strings come from or what they mean; it's up to the tools to interpret them.
+When using the go tool, an import path denotes a directory containing one or
+more Go source files that together make up the package.
+
+- It is an error to import a package and then not refer to it. This check helps
+eliminate dependencies that become unnecessary as the code evolves, although it
+can be a nuisance during debugging.
