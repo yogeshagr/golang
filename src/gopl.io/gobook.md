@@ -448,6 +448,8 @@ operators or peculiar artithmetic operators are required, as when implementing
 bit sets, parsing binary file formats, or for hashing and cryptography. They are
 typically not used for merely non-negative quantities.
 
+- The natural data type to hold a single rune is int32.
+
 ## Coding style
 - Normal practice in Go is to deal with the error in the if block and then
 return, so that the successful execution path is not indented.
