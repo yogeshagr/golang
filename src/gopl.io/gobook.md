@@ -344,7 +344,7 @@ statements that follow, resulting in compile errors. Depending on the compiler,
 you may get an additional error reporting that the local variable f was never
 used.
 
-Thus it is often necenssary to declare f before the conditions so that it is
+Thus it is often necessary to declare f before the conditions so that it is
 accessible after:
 ```
 f, err := os.Open(fname)
@@ -367,6 +367,58 @@ if f, err := os.Open(fname); err != nil {
 ```
 but normal practice in Go is to deal with the error in the if block and then
 return, so that the successful exection path is not indented.
+
+- Consider the prorgram below, which starts by obtaining its current working
+directory and saving it in a package-level variable. This could be done by
+calling os.Getwd in function main, but it might be better to separate this
+concern from the primary logic, especially if failing to get the directory is a
+fatal error. The function log.Fatal prints a message and calls os.Exit(1).
+```
+var cwd string
+
+func init() {
+  cwd, err := os.Getwd() // compile error: unused: cwd
+  if err != nil {
+    log.Fatal("os.Getwd failed: %v", err)
+  }
+}
+```
+Since neither cwd nor err is already declared in the init functions's block, the
+:= statement declares both of them as local variables. The inner declaration of
+cwd makes the outer one inaccessible, so the statement does not update the
+package-level cwd variable as intented.
+
+- Current Go compilers detect that the local cwd variable is never used and
+report this as an error, but they are not strictly required to perform this
+check. Furthermore, a minor change, such as the addition of a logging statement
+that refers to the local cwd would defeat the check.
+```
+var cwd string
+
+func init() {
+  cwd, err := os.Getwd()
+  if err != nil {
+    log.Fatal("os.Getwd failed: %v", err)
+  }
+  log.Printf("Working directory = %s", cwd)
+}
+```
+The global cwd variable remains uninitialized, and the apparently normal log
+output obfuscates the bug.
+
+There are a number of ways to deal with this potential problem. The most direct
+is to avoid := by declaring err in a separate var declaration:
+```
+var cwd string
+
+func init() {
+  var err error
+  cwd, err = os.Getwd()
+  if err != nil {
+    log.Fatal("os.Getwd failed: %v", err)
+  }
+}
+```
 
 
 ## Coding style
