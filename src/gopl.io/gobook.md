@@ -420,6 +420,33 @@ func init() {
 }
 ```
 
+## Ch3: Basic Data Types
+- The type rune is a synonym for int32 and conventionally indicates that a value
+is a Unicode code point. Similarly, the type byte is a synonym for uint8, and
+empasizes that the value is a raw data rather than a small numeric quantity.
+
+- Although Go provides unsigned numbers and arithmetic, we tend to use the
+signed int form even for quantities that can't be negative, such as the length
+of an array, though uint might seem a more obvious choice. Indeed, the built-in
+len function returns a signed int, as in this loop which announces prize medals
+in reverse order:
+```
+medals := []string{"gold", "silver", "bronze"}
+for i := len(medals) - 1; i >= 0; i-- {
+  fmt.Println(medals[i])
+}
+```
+If len returned an unsigned number, then i too would be a uint, and the
+condition i >= 0 would always be true by definition. After the third iteration,
+in which i == 0, the i-- statement would cause i to become not -1, nit the
+maximum uint value (for example, 2**64 - 1), and the evaluation of the medals[i]
+would fail at run time, or panic, by attempting to access an element outside the
+bounds of the slice.
+
+For this reason, unsigned numbers tend to be used only when their bitwise
+operators or peculiar artithmetic operators are required, as when implementing
+bit sets, parsing binary file formats, or for hashing and cryptography. They are
+typically not used for merely non-negative quantities.
 
 ## Coding style
 - Normal practice in Go is to deal with the error in the if block and then
