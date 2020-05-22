@@ -329,3 +329,46 @@ more Go source files that together make up the package.
 - It is an error to import a package and then not refer to it. This check helps
 eliminate dependencies that become unnecessary as the code evolves, although it
 can be a nuisance during debugging.
+
+### Scope
+- In the following program
+```
+if f, err := os.Open(fname); err != nil { // compile error: unused: f
+  return err
+}
+f.Stat() // compile error: undefined f
+f.Close() // compile error: undefined f
+```
+the scope of f is just the if statement, so f is not accessible to the
+statements that follow, resulting in compile errors. Depending on the compiler,
+you may get an additional error reporting that the local variable f was never
+used.
+
+Thus it is often necenssary to declare f before the conditions so that it is
+accessible after:
+```
+f, err := os.Open(fname)
+if err != nil {
+  return err
+}
+f.Stat()
+f.Close()
+```
+You may be tempted to avoid declaring f and err in the outer block by moving the
+calls to Stat and Close inside an else block:
+```
+if f, err := os.Open(fname); err != nil {
+  return err
+} else {
+  // f and err are visible here too
+  f.Stat()
+  f.Close()
+}
+```
+but normal practice in Go is to deal with the error in the if block and then
+return, so that the successful exection path is not indented.
+
+
+## Coding style
+- Normal practice in Go is to deal with the error in the if block and then
+return, so that the successful execution path is not indented.
