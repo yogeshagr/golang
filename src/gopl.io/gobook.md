@@ -450,6 +450,13 @@ typically not used for merely non-negative quantities.
 
 - The natural data type to hold a single rune is int32.
 
+- When a UTF-8 decoder consumes an unexpected input byte, it generates a special
+Unicode replacement character, '\uFFFD', which is usually printed as a white
+question mark inside a black hexagonal or diamond-like shape �. When a program
+encounters this rune value, it's often a sign that some upstream part of the
+system that generated the string data has been careless in its treatment of text
+encodings.
+
 ## Coding style
 - Normal practice in Go is to deal with the error in the if block and then
 return, so that the successful execution path is not indented.
