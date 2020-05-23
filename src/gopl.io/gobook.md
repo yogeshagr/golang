@@ -489,6 +489,12 @@ which is not necessarily the array's first element. The length is the number of
 slice elements; it can't exceed the capacity, which is usually the number of
 elements between the start of the slice and the end of the underlying array.
 
+- Unlike arrays, slices are not comparable. The only legal slice comparison is
+against nul, as in
+```
+if summer == nil {/* ... */}
+```
+
 - The zero value of a slice type is nil. A nil slice has no underlying array.
 The nil slice has length and capacity zero.
 ```
