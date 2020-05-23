@@ -457,6 +457,23 @@ encounters this rune value, it's often a sign that some upstream part of the
 system that generated the string data has been careless in its treatment of text
 encodings.
 
+## ch4: Composite types
+### Arrays
+- An array is a fixed-length sequence of zero or more elements of a particular
+type. Because of their fixed length, arrays are rarely used directly in Go.
+```
+var a [3]int
+fmt.Println(a[0])
+fmt.Println(a[len(a)-1])
+```
+
+- The size of an array is part of its type, so [3]int and [4]int are different
+types.
+```
+var q [3]int = [3]int{1, 2, 3}
+q := [3]int{1, 2, 3}
+```
+
 ## Coding style
 - Normal practice in Go is to deal with the error in the if block and then
 return, so that the successful execution path is not indented.
