@@ -489,6 +489,15 @@ which is not necessarily the array's first element. The length is the number of
 slice elements; it can't exceed the capacity, which is usually the number of
 elements between the start of the slice and the end of the underlying array.
 
+- The zero value of a slice type is nil. A nil slice has no underlying array.
+The nil slice has length and capacity zero.
+```
+var s []int     // len(s) == 0, s == nil
+s = nil         // len(s) == 0, s == nil
+s = []int(nil)  // len(s) == 0, s == nil
+s = []int{}     // len(s) == 0, s != nil
+```
+
 
 ## Coding style
 - Normal practice in Go is to deal with the error in the if block and then
