@@ -504,6 +504,15 @@ s = []int(nil)  // len(s) == 0, s == nil
 s = []int{}     // len(s) == 0, s != nil
 ```
 
+- The built-in function make creates a slice of a specified element type,
+length, and capacity. The capacity argument may be omitted, in which case the
+capacity equals the length.
+```
+make([]T, len)
+make([]T, len, cap)
+```
+Under the hood, make creates an unnamed array variable and returns a slice of
+it; the array is accessible only through the returned slice.
 
 ## Coding style
 - Normal practice in Go is to deal with the error in the if block and then
