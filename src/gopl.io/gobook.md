@@ -552,6 +552,35 @@ not be of the same type as the values. The key type K must be comparable using
 ==, so that the map can test whether a given key is equal to one already within
 it.
 
+- Go does not provide a set type, but since the keys of a map are distinct, a
+map can serve this purpose.
+
+- Sometimes we need a map or set whose keys are slices, but because a map's keys
+must be comparable, this cannot be expressed directly. However, it can be done
+in two steps. First we define a helper function k that maps each key to a
+string, with the property that k(x) == k(y) if and only if we consider x and y
+equivalent. Then we create a map whose keys are strings, applying helper
+function to each key before we access the map.
+
+The example below uses a map to record the number of times Add has been called
+with a given list of strings. It uses fmt.Sprintf to convert a slice of strings
+into a single string that is a suitable map key.
+```
+var m = make(map[string]int)
+
+func k(list []string) string {
+  return fmt.Sprintf("%q", list)
+}
+
+func Add(list []string) {
+  m[k(list)]++
+}
+
+func Count(list []string) int {
+  return m[k(list)]
+}
+```
+
 ## Coding style
 - Normal practice in Go is to deal with the error in the if block and then
 return, so that the successful execution path is not indented.
