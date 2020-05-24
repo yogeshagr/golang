@@ -9,8 +9,21 @@ func reverse(s []int) {
 	return
 }
 
+func reverse2(a *[]int) {
+	fmt.Println(len(a))
+}
+
 func main() {
-	s := []int{1, 2, 3, 4, 5}
+	s := []int{1, 2, 3, 4, 5} // slice initialization
 	reverse(s)
+
+	a := [...]int{1, 2, 3, 4, 5} // array initialization
+	reverse2(&a)
+
+	reverse(a[:]) // passing a slice
+
 	fmt.Println(s)
+	fmt.Println(a)
+
+	fmt.Printf("a is of type %T and s is of type %T\n", a, s)
 }

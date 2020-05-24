@@ -474,6 +474,23 @@ var q [3]int = [3]int{1, 2, 3}
 q := [3]int{1, 2, 3}
 ```
 
+- We can pass a pointer to an array so that any modifications the function makes
+to array elements will be visible to the caller. This function zeros the
+contents of a [32]byte array.
+```
+func zero (ptr *[32]byte) {
+  for i := range ptr {
+    ptr[i] = 0
+  }
+}
+```
+Using a pointer to an array is efficient and allows the called function to
+mutate the caller's variable, but arrays are still inherently inflexible because
+of their fixed size. The zero function will not accept a pointer to a [16]byte
+variable, for example, nor is there any way to add or remove any elements. For
+these reasons, other than special cases, arrays are seldom used as a function
+parameters or results; instead, we use slices.
+
 ### Slices
 - Slices represent variable-length sequence whose elements all have the same
 type. A slice type is written []T, where the elements have type T; it looks like
