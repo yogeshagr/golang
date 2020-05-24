@@ -662,6 +662,21 @@ p := Point{X: 1, Y: 2}
 More often, the second form is used, in which a struct value is initialized by
 listing some or all of the field names and their corresponding values.
 
+- If all the fields of a struct are comparable, the struct itself is comparable,
+so two expressions of that type may be compared using == or !=. The == operation
+compares the corresponding fields of the two structs in order.
+
+- Comparable struct types, like other comparable struct types, may be used as
+the key type of a map.
+```
+type address struct {
+  hostname string
+  port     int
+}
+hits := make(map[address]int)
+hits[address{"golang.org", 443}]++
+```
+
 ## Coding style
 - Normal practice in Go is to deal with the error in the if block and then
 return, so that the successful execution path is not indented.
