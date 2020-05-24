@@ -483,6 +483,19 @@ an array type without a size.
 (or perhaps all) of the elements of an array, which is knowns as the slice's
 underlying array.
 
+- Initialization of the slice differs from that for the array.
+```
+a := [...]int{0, 1, 2, 3, 4, 5}
+```
+```
+s := []int{0, 1, 2, 3, 4, 5}
+```
+A slice literal looks like an array literal, a sequence of values separated by
+commas and surrounded by braces, but the size is not given. This implicitly
+creates an array variable of the right size and yields a slice that points to
+it. As with array literals, slice literals may specify the values in order, or
+give their indices explicitly, or use a mix of the two styles.
+
 - A slice has three components: a pointer, a length, and a capacity. The pointer
 points to the first element of the array that is reachable through the slice,
 which is not necessarily the array's first element. The length is the number of
