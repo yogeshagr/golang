@@ -620,6 +620,41 @@ func Count(list []string) int {
 }
 ```
 
+### Structs
+- These two statements declare a struct type called Employee and a variable
+called dilbert that is an instance of an Empoyee:
+```
+type employee struct {
+  id int
+  name string
+  salary int
+}
+var dilbert employee
+```
+Given an employee's unique id, the function employeeById returns a pointer to an
+employee struct.
+```
+func employeeById(id int) *employee { /* ... */ }
+fmt.Println(employeeById(dilbert.id).salary)
+
+id := dilbert.id
+employeeById(id).salary = 0
+```
+The last statement updates the employee struct that is pointed to by the result
+of the call to employeeByID. If the result type of employeeById were changed to
+employee instead of *employee, the assignment statement would not compile since
+its left-hand side would not identify a variable, as in:
+```
+func employeeById(id int) employee { /* ... */}
+employeeById(id).salary = 0
+```
+```
+$ go build -o ./bin/ struct-pointer.go
+# command-line-arguments
+./struct-pointer.go:19:26: cannot assign to employeeById(id).salary
+```
+
+
 ## Coding style
 - Normal practice in Go is to deal with the error in the if block and then
 return, so that the successful execution path is not indented.
