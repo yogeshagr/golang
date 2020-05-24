@@ -677,6 +677,49 @@ hits := make(map[address]int)
 hits[address{"golang.org", 443}]++
 ```
 
+- Struct can have a field with a type but no name; such fields are called
+anonymous fields. The type of the field must be a named type or a pointer to a
+named type. For example:
+```
+type Point struct {
+  X, Y int
+}
+type Circle struct {
+  Point
+  Radius int
+}
+type Wheel struct {
+  Circle
+  Spokes int
+}
+```
+```
+var w Wheel
+w.X = 8         // equivalent to w.Circle.Point.X = 8
+w.Y = 8         // equivalent to w.Circle.Point.Y = 8
+w.Radius = 5    // equivalent to w.Circle.Radius = 5
+w.Spokes = 20
+```
+
+- Unfortunately, there's no corresponding shorthand for the struct literal
+syntax, so neither of these will compile
+```
+w = Wheel{8, 8, 5, 20}
+w = Wheel{X: 8, Y: 8, Radius: 5, Spokes: 20}
+```
+The struct literal must follow the shape of the type declaration, so we must use
+one of the two forms below
+```
+w = Wheel{Circle{Point{8, 8}, 5}, 20}
+w = Wheel{
+  Circle: Circle{
+    Point: Point{X:8, Y: 8},
+    Radius: 5,
+  },
+  Spokes: 20
+}
+```
+
 ## Coding style
 - Normal practice in Go is to deal with the error in the if block and then
 return, so that the successful execution path is not indented.
