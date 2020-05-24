@@ -654,6 +654,13 @@ $ go build -o ./bin/ struct-pointer.go
 ./struct-pointer.go:19:26: cannot assign to employeeById(id).salary
 ```
 
+- There are two forms of struct literal.
+```
+p := Point{1, 2}
+p := Point{X: 1, Y: 2}
+```
+More often, the second form is used, in which a struct value is initialized by
+listing some or all of the field names and their corresponding values.
 
 ## Coding style
 - Normal practice in Go is to deal with the error in the if block and then
