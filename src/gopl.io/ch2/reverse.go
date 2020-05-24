@@ -9,8 +9,10 @@ func reverse(s []int) {
 	return
 }
 
-func reverse2(a *[]int) {
-	fmt.Println(len(a))
+func reverse2(a *[5]int) {
+	for i, j := 0, len(a)-1; i < j; i, j = i+1, j-1 {
+		a[i], a[j] = a[j], a[i]
+	}
 }
 
 func main() {
@@ -20,7 +22,7 @@ func main() {
 	a := [...]int{1, 2, 3, 4, 5} // array initialization
 	reverse2(&a)
 
-	reverse(a[:]) // passing a slice
+	//reverse(a[:]) // passing a slice
 
 	fmt.Println(s)
 	fmt.Println(a)
