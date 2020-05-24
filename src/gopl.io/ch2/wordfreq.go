@@ -24,13 +24,13 @@ func main() {
 
 	input.Split(bufio.ScanWords) // break the input into words instead of lines
 
-	wordfreq := map[string]int{}
+	wordfreq := make(map[string]int) // or wordfreq := map[string]int{}
 
 	for input.Scan() {
 		word := input.Text()
 		wordfreq[word]++
 	}
 	for k, v := range wordfreq {
-		fmt.Printf("%s\t%d\n", k, v)
+		fmt.Printf("%-30s %d\n", k, v)
 	}
 }
