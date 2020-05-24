@@ -544,6 +544,14 @@ make([]T, len, cap)
 Under the hood, make creates an unnamed array variable and returns a slice of
 it; the array is accessible only through the returned slice.
 
+### Maps
+- A map is a reference to a hash table, and a map type is written map[K]V, where
+K and V are the type of its keys and values. All of the keys in a given map are
+of the same type, and all of the values are of the same type, but the keys need
+not be of the same type as the values. The key type K must be comparable using
+==, so that the map can test whether a given key is equal to one already within
+it.
+
 ## Coding style
 - Normal practice in Go is to deal with the error in the if block and then
 return, so that the successful execution path is not indented.
