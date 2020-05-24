@@ -552,6 +552,45 @@ not be of the same type as the values. The key type K must be comparable using
 ==, so that the map can test whether a given key is equal to one already within
 it.
 
+- The zero value for a map type is nil, that is, a reference to no hash table at
+all.
+```
+var ages map[string]int
+fmt.Println(ages == nil) // "true"
+fmt.Println(len(ages) == 0) // "true"
+```
+Storing to a nil map causes a panic:
+```
+ages["carol"] = 21 // panic: assignment to entry in nil map
+```
+You must allocate the map before you can store into it.
+
+- While accessing a map, if the key is present in the map, you get the
+corresponding value; if not, you get the zero value for the element type.
+
+- To check if a key is present in a map or not
+```
+age, ok := ages["bob"]
+if !ok { /* "bob" is not a key in this map; age == 0. */}
+```
+
+- As with slices, maps cannot be compared to each other; the only legal
+comparison is with nil. To test whether two maps contain the same keys and the
+same assoicated values, we must wirte a loop:
+```
+func equal(x, y map[strint]int) bool {
+  if len(x) != len(y) {
+    return false
+  }
+  for k, xv := range x {
+    if yv, ok := y[k]; !ok || yv != xv {
+      return false
+    }
+  }
+  return true
+}
+```
+
 - Go does not provide a set type, but since the keys of a map are distinct, a
 map can serve this purpose.
 
