@@ -21,4 +21,5 @@ func main() {
 	fmt.Printf("%T\n%T\n", a, b)
 	f := embedded()
 	fmt.Println(f())
+	fmt.Println(f())
 }
