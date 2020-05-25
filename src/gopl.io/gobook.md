@@ -757,6 +757,77 @@ func main() {
 }
 ```
 
+### Errors
+- Errors are an important part of a package's API or an application's user
+interface, and failure are just one of several expected behaviors. This is the
+approach Go takes to error handling.
+
+- Go demands that more attention be paid to error-handling logic.
+
+#### Error-handling strategies
+There are five strategies for handling errors:
+
+- First, and most common, is to propagate the error, so that a failure in a
+subroutine becomes a failure of the calling routine.
+```
+doc, err := html.Parse(resp.Body)
+resp.Body.Close()
+if err != nil {
+  return nil, fmt.Errorf("parsing %s as HTML: %v", url, err)
+}
+```
+The fmt.Errorf function formats an error message using ftm.Sprintf and returns a
+new error value.
+
+- Because error messages are frequently chained together, message strings should
+not be capitalized and newlines should be avoided. The resulting errors may be
+long, but they will be self-contained when found by tools like grep.
+
+- Second strategy is to retry the failed operation, possibly with a delay
+between tries, and perhaps with a limit on the number of attempts or the time
+spent trying before giving up entirely.
+
+- Third, if progress is impossible, the caller can print the error and stop the
+program gracefully, but this course of action should generally be reserved for
+the main package of a program. Library functions should usually propagate errors
+to the caller, unless the error is a sign of an internal inconsistency - that is
+a bug.
+```
+if err := WaitForServer(url); err != nil {
+  fmt.Fprintf(os.Stderr, "Site is down: %v\n", err)
+}
+```
+A more convenient way to achieve the same effect is to call log.Fatalf. As with
+all the log functions, by default it prefixes the time and data to the error
+message.
+```
+if err := WaitForServer(url); err != nil {
+  log.Fatalf("Site is down: %v\n", err)
+}
+```
+
+- Fourth, in some cases, it's sufficient just to log the error and then
+continue, perhaps with reduced functionality.
+```
+if err := Ping(); err != nil {
+  log.Printf("ping failed: %v; networking disabled", err)
+}
+```
+
+- And fifth and finally, in rare cases we can safely ignore an error entirely.
+```
+os.RemoveAll(dir) // ignore errors; $TMPDIR is cleaned periodically
+```
+In such cases the program logic would be the same had we forgotten to deal with
+it. Get into the habit of considering errors after every function call, and when
+you deliberately ignore one, document your intention clearly.
+
+- After checking an error, failure is usually dealt with before success. If
+failure causes the function to return, the logic for success is not indented
+within an else block but follows at the outer level. Functions tend to exhibit a
+common structure, with a series of initial checks to reject errors, followed by
+the substance of the function at the end, minimally indented.
+
 ## Coding style
 - Normal practice in Go is to deal with the error in the if block and then
 return, so that the successful execution path is not indented.
