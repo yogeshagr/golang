@@ -720,6 +720,43 @@ w = Wheel{
 }
 ```
 
+## ch5: Functions
+- A function declaration has a name, a list of parameters, an optional list of
+results, and a body.
+```
+func name(parameter-list) (result-list) {
+  body
+}
+```
+
+- The type of a function is sometimes called its signature. Two functions have
+the same type or signature if they have the same sequence of parameter types and
+the same sequence of result types. The names of parameters and results don't
+affect the type, nor does whether or not they are declared using the factored
+form.
+
+- Every function call must provide an argument for each parameter, in the order
+in which the parameters were declared. Go has no concept of default values, nor
+any way to specify arguments by name.
+
+- Arguments are passed by value, so the function receives a copy of each
+argument; modifications to the copy do not affect the caller. However, if the
+argument contains some kind of reference, like a pointer, slice, map, function,
+or channel, then the caller may be affected by any modifications the function
+makes to variable indirectly referred to by the argument, for example:
+```
+func modifySlice(a []string, b string) {
+	a[0] = b
+}
+
+func main() {
+	a := []string{"a", "b"}
+	fmt.Println(a) // [a, b]
+	modifySlice(a, "b")
+	fmt.Println(a) // [b, b]
+}
+```
+
 ## Coding style
 - Normal practice in Go is to deal with the error in the if block and then
 return, so that the successful execution path is not indented.
