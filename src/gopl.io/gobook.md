@@ -868,6 +868,40 @@ used as keys in a map.
 - Function values let us parameterize our functions over not just data, but
 behavior too. Meaning we can pass function as an argument to another functions.
 
+### Anonymous Functions
+- Named functions can be declared only at the package level, but we can use a
+function literal to denote a function value within any expression.
+```
+func squares() func() int {
+  var x int
+  return func() int {
+    x++
+    return x * x
+  }
+}
+func main() {
+  f := squares()
+  fmt.Println(f()) // "1"
+  fmt.Println(f()) // "4"
+  fmt.Println(f()) // "9"
+}
+```
+The function squares returns another function, of type func() int. A call to
+squares creates a local variable x and returns an anonymous function that, each
+time it is called, increments x and returs its square.
+
+The squares example demonstrates that function values are not just code but can
+have state. The anonymous inner function can access and update the local
+variables of the enclosing function squares. These hidden variable references
+are why we classify functions as reference types and why functions are not
+comparable. Function values like are implemented using a technique called
+closures.
+
+Here we can see that that the lifetime of variable is not determined by its
+scope: the variable x exists after squares has returned within main, even though
+x is hidden inside f.
+
+
 ## Coding style
 - Normal practice in Go is to deal with the error in the if block and then
 return, so that the successful execution path is not indented.
