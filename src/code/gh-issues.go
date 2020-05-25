@@ -26,8 +26,8 @@ func createIssue(owner string, repo string) {
 	var myIssue issue
 	myIssue.Title = "Found a bug"
 	myIssue.Body = "I'm having a problem with this"
-	myIssue.Labels = []string{"bug"}
-	myIssue.Assignees = []string{"yogeshagr"}
+	myIssue.Labels = append(myIssue.Labels, "bug")
+	myIssue.Assignees = append(myIssue.Assignees, "yogeshagr")
 	myJson, err := json.Marshal(myIssue)
 
 	/*	var jsonStr := []byte(`{
