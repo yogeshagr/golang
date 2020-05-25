@@ -721,6 +721,7 @@ w = Wheel{
 ```
 
 ## ch5: Functions
+### Functions
 - A function declaration has a name, a list of parameters, an optional list of
 results, and a body.
 ```
@@ -827,6 +828,45 @@ failure causes the function to return, the logic for success is not indented
 within an else block but follows at the outer level. Functions tend to exhibit a
 common structure, with a series of initial checks to reject errors, followed by
 the substance of the function at the end, minimally indented.
+
+### Function Values
+- Functions are first-class values in Go: like other values, functions values
+have types, and they may be assigned to variables or passed to or returned from
+functions. A function value may be called like any other function.
+```
+func sqaure(n int) int { return n * n }
+func negative(n int) int { return -n }
+func product(m, n int) int { return m * n }
+
+f := square
+fmt.Println(f(3)) // "9"
+
+f = negative
+fmt.Println(f(3)) // "-3"
+fmt.Printf("%T\n", f) // "func(int) int"
+
+f = product // compile error: can't assign func(int, int) int to func(int) int
+```
+
+- The zero value of a function type is nil. Calling a nil function value causes
+a panic.
+```
+var f func(int) int
+f(3) // panic: call of nil function
+```
+
+- Function values may be compared with nil:
+```
+var f func(int) int
+if f != nil {
+  f(3)
+}
+```
+but they are not comparable, so they may not be compared against each other or
+used as keys in a map.
+
+- Function values let us parameterize our functions over not just data, but
+behavior too. Meaning we can pass function as an argument to another functions.
 
 ## Coding style
 - Normal practice in Go is to deal with the error in the if block and then
