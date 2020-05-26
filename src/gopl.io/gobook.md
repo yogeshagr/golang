@@ -925,13 +925,16 @@ fmt.Println(sum(1, 2, 3, 4))    // "10"
 ```
 Implicitly, the caller allocates an array, copies the arguments into it, and
 passes a slice of the entire array to the function.
+
+- When the arguments are already in a slice, we can place an ellipsis after the
+final argument as follows:
 ```
 values := []int{1, 2, 3, 4}
-fmt.Println(sum(values))    // "10"
+fmt.Println(sum(values...))    // "10"
 ```
 
 - Although the ...int parameter behaves like a slice within the function body,
-the scope of variadic function is distinct from the type of a function with an
+the type of a variadic function is distinct from the type of a function with an
 ordinary slice parameter.
 ```
 func f(...int) {}
