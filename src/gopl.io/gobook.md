@@ -944,6 +944,14 @@ fmt.Printf("%T\n", f)   // "func(...int)"
 fmt.Printf("%T\n", g)   // "func([]int)"
 ```
 
+### Deferred function calls
+- A defer statement is an ordinary function or method call prefixed by the
+keyword defer. The function and argument expressions are evaluated when the
+statement is executed, but the actual call is deferred until the function that
+contains the defer statement has finished, whether normally, by executing a
+return statement or falling off the end, or abnormally, by panicking. Any number
+of calls may be deferred; they are executed in the reverse of the order in which
+they were deferred.
 
 ## Coding style
 - Normal practice in Go is to deal with the error in the if block and then
