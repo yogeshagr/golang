@@ -894,12 +894,52 @@ The squares example demonstrates that function values are not just code but can
 have state. The anonymous inner function can access and update the local
 variables of the enclosing function squares. These hidden variable references
 are why we classify functions as reference types and why functions are not
-comparable. Function values like are implemented using a technique called
+comparable. Function values like these are implemented using a technique called
 closures.
 
 Here we can see that that the lifetime of variable is not determined by its
 scope: the variable x exists after squares has returned within main, even though
 x is hidden inside f.
+
+### Variadic Functions
+- A variadic function is one that can be called with varying numbers of
+arguments.
+
+- To declare a variadic function, the type of the final parameter is preceded by
+an ellipsis, "...", which indicates that the function may be called with any
+number of arguments of this type.
+```
+func sum(vals ...int) int {
+  total := 0
+  for _, val := range vals {
+    total += val
+  }
+  return total
+}
+```
+Within the body of the function, the type of vals is an []int slice.
+```
+fmt.Println(sum())    // "0"
+fmt.Println(sum(3))   // "3"
+fmt.Println(sum(1, 2, 3, 4))    // "10"
+```
+Implicitly, the caller allocates an array, copies the arguments into it, and
+passes a slice of the entire array to the function.
+```
+values := []int{1, 2, 3, 4}
+fmt.Println(sum(values))    // "10"
+```
+
+- Although the ...int parameter behaves like a slice within the function body,
+the scope of variadic function is distinct from the type of a function with an
+ordinary slice parameter.
+```
+func f(...int) {}
+func (g[]int) {}
+
+fmt.Printf("%T\n", f)   // "func(...int)"
+fmt.Printf("%T\n", g)   // "func([]int)"
+```
 
 
 ## Coding style
