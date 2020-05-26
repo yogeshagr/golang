@@ -15,8 +15,19 @@ func max(vals ...int) int {
 	return max
 }
 
+func max2(first int, vals ...int) int {
+	max := first
+	for _, val := range vals {
+		if val > max {
+			max = val
+		}
+	}
+	return max
+}
+
 func main() {
 	numbers := []int{1, 2, 3, 4, 10, -10, -100}
 	fmt.Println(max(numbers...))
 	fmt.Println(max())
+	fmt.Println(max2(1, numbers...))
 }
