@@ -953,6 +953,23 @@ return statement or falling off the end, or abnormally, by panicking. Any number
 of calls may be deferred; they are executed in the reverse of the order in which
 they were deferred.
 
+- A defer statement is often used with paired operations like open and close,
+connect and disconnect, or lock and unlock to ensure that resources are released
+in all cases, no matter how complex the control flow.
+
+- The right place for a defer statement that releases a resource is immediately
+after the resource has been successfully acquire.
+
+- The defer statement can also be used to pair "on entry" and "on exit" actions
+when debugging a complex function. The bigSlowOperation function below calls
+trace immediately, which does the "on entry" action then returns a function
+value that, when called, does tge corresponding "on exit" action. By deferring a
+call to the returned function in this way, we can instrument the entry point and
+all exit points of a function in a single statement and even pass values, like
+the start time, between the two actions. But don't forget the final parentheses
+in the defer statement, or the "on entry" will happen on exit and the on-exit
+action won't happen at all!
+
 ## Coding style
 - Normal practice in Go is to deal with the error in the if block and then
 return, so that the successful execution path is not indented.
