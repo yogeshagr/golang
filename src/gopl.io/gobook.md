@@ -870,7 +870,18 @@ behavior too. Meaning we can pass function as an argument to another functions.
 
 ### Anonymous Functions
 - Named functions can be declared only at the package level, but we can use a
-function literal to denote a function value within any expression.
+function literal to denote a function value within any expression. A function
+literal is written like a function declaration, but without a name following the
+func keyword. It is an expression, and its value is called an anonymous
+function.
+
+- Function literals let us define a function at its point of use. For example:
+```
+strings.Map(func(r rune) rune { return r + 1 }, "HAL-9000")
+```
+Functions defined in this way have access to the entire lexical environment, so
+the inner function can refer to variables from the enclosing function, as this
+example shows:
 ```
 func squares() func() int {
   var x int
@@ -888,7 +899,7 @@ func main() {
 ```
 The function squares returns another function, of type func() int. A call to
 squares creates a local variable x and returns an anonymous function that, each
-time it is called, increments x and returs its square.
+time it is called, increments x and returns its square.
 
 The squares example demonstrates that function values are not just code but can
 have state. The anonymous inner function can access and update the local
