@@ -735,6 +735,17 @@ the same type or signature if they have the same sequence of parameter types and
 the same sequence of result types. The names of parameters and results don't
 affect the type, nor does whether or not they are declared using the factored
 form.
+```
+func add(x int, y int) int { return x +y }
+func sub(x, y int) (z int) { z = x - y; return }
+func first(x int, _ int) (z int) { return x }
+func zero(int, int) int { return 0 }
+
+fmt.Printf("%T\n", add) // "func(int, int) int"
+fmt.Printf("%T\n", sub) // "func(int, int) int"
+fmt.Printf("%T\n", first) // "func(int, int) int"
+fmt.Printf("%T\n", zero) // "func(int, int) int"
+```
 
 - Every function call must provide an argument for each parameter, in the order
 in which the parameters were declared. Go has no concept of default values, nor
