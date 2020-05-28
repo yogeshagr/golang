@@ -1,0 +1,3 @@
+- rob pike's written material on golang
+- revisit function named result
+- closure
