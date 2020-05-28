@@ -747,9 +747,17 @@ fmt.Printf("%T\n", first) // "func(int, int) int"
 fmt.Printf("%T\n", zero) // "func(int, int) int"
 ```
 
+- Named results are treated as variables defined at the top of the function.
+
 - Every function call must provide an argument for each parameter, in the order
 in which the parameters were declared. Go has no concept of default values, nor
-any way to specify arguments by name.
+any way to specify arguments by name, so the names of parameters and results
+don't matter to the caller except as documentation.
+
+- Parameters are local variables within the body of the function, with their
+initial values set to the arguments supplied by the caller. Function parameters
+and named results are variables in the same lexical block as the function's
+outermost local variables.
 
 - Arguments are passed by value, so the function receives a copy of each
 argument; modifications to the copy do not affect the caller. However, if the
@@ -878,6 +886,10 @@ used as keys in a map.
 
 - Function values let us parameterize our functions over not just data, but
 behavior too. Meaning we can pass function as an argument to another functions.
+```
+func add1(r rune) rune { return r + 1 }
+fmt.Println(strings.Map(add1, "HAL-9000")) // "IBM.:111"
+```
 
 ### Anonymous Functions
 - Named functions can be declared only at the package level, but we can use a
@@ -975,12 +987,23 @@ return statement or falling off the end, or abnormally, by panicking. Any number
 of calls may be deferred; they are executed in the reverse of the order in which
 they were deferred.
 
+- Each time a "defer" statement executes, the function value and parameters to
+the call are evaluated as usual and saved anew but the actual function is not
+invoked.
+```
+defer f(g())()
+```
+In this case the deferred function is the return value of f, so to evaluate the
+deferred function value, f must be called, and to do that g must be called
+prior. The returned value of f will be deferred(not called).
+
+- A defer statement could be used to avoid code duplication.
+
 - A defer statement is often used with paired operations like open and close,
 connect and disconnect, or lock and unlock to ensure that resources are released
-in all cases, no matter how complex the control flow.
-
-- The right place for a defer statement that releases a resource is immediately
-after the resource has been successfully acquire.
+in all cases, no matter how complex the control flow. The right place for a
+defer statement that releases a resource is immediately after the resource has
+been successfully acquire.
 
 - The defer statement can also be used to pair "on entry" and "on exit" actions
 when debugging a complex function. The bigSlowOperation function below calls
@@ -991,6 +1014,10 @@ all exit points of a function in a single statement and even pass values, like
 the start time, between the two actions. But don't forget the final parentheses
 in the defer statement, or the "on entry" will happen on exit and the on-exit
 action won't happen at all!
+
+- Because an anonymous function can access its enclosing function's variables,
+including named results, a deferred anonymous function can observe the
+function's results.
 
 ## Coding style
 - Normal practice in Go is to deal with the error in the if block and then
