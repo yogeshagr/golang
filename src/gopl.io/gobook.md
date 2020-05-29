@@ -1028,6 +1028,18 @@ structure so that clients need not access the object's representation directly.
 - We will show how to define and use methods effectively. We will also cover two
 key principles of object-oriented programming, encapsulation and composition.
 
+### Composition
+```
+type Point  struct{ X, Y float64 }
+
+type ColoredPoint struct {
+  Point
+  Color color.RGBA
+}
+```
+We could have defined ColoredPoint as a struct of three fields, but instead we
+embedded a Point to provide the X and Y fields.
+
 ## Coding style
 - Normal practice in Go is to deal with the error in the if block and then
 return, so that the successful execution path is not indented.
