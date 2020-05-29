@@ -1090,6 +1090,21 @@ object's variables arbitrarily. Because the object's variables can be set only
 by functions in the same package, the author of that package can ensure that all
 those functions maintain the object's internal invariants.
 
+## ch7: Interfaces
+- Concrete types: A concrete type specifies the exact representation of its
+values and exposes the intrinsic operations of that representation, such as
+arithmetic for numbers, or indexing, append, and range for slices. A concrete
+type may also provide additional behaviors through its methods. When you have a
+value of a concrete type, you know exactly what it is and what you can do with
+it.
+
+- Interface type: There is another kind of type in Go called an interface type.
+An interface is an abstract type. It doesn't expose the representation or
+internal structure of its values, or the set of basic operations they support;
+it reveals only some of their methods. When you have a value of an interface
+type, you know nothing about what it is; you know only what it can do, or more
+precisely, what behaviors are provided by its methods.
+
 ## Coding style
 - Normal practice in Go is to deal with the error in the if block and then
 return, so that the successful execution path is not indented.
