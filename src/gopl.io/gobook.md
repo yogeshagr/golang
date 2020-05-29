@@ -1019,6 +1019,15 @@ action won't happen at all!
 including named results, a deferred anonymous function can observe the
 function's results.
 
+## ch6: Methods
+- An object is simply a value or variable that has methods, and a method is a
+function associated with a particular type. An object-oriented program is one
+that uses methods to express the properties and operations of each data
+structure so that clients need not access the object's representation directly.
+
+- We will show how to define and use methods effectively. We will also cover two
+key principles of object-oriented programming, encapsulation and composition.
+
 ## Coding style
 - Normal practice in Go is to deal with the error in the if block and then
 return, so that the successful execution path is not indented.
