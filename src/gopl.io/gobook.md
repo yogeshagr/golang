@@ -1153,6 +1153,12 @@ declaration if the concrete type. This is particularly useful when the concrete
 type comes from a package written by a different author. Of course, there do
 need to be underlying commonalities in the concrete types.
 
+- Interface values may be compared using == and !=. Two interface values are
+equal if both are nil, or if their dynamic types are identical and their
+dynamic values are equal according to the usual behavior of == for that type.
+Only compare interface values if you are certain that they contain dynamic
+values of comparable types.
+
 ## Coding style
 - Normal practice in Go is to deal with the error in the if block and then
 return, so that the successful execution path is not indented.
