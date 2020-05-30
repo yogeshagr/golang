@@ -1105,6 +1105,54 @@ it reveals only some of their methods. When you have a value of an interface
 type, you know nothing about what it is; you know only what it can do, or more
 precisely, what behaviors are provided by its methods.
 
+- An interface type specifies a set of methods that a concrete type must posses
+to be considered an instance of that interface.
+
+```
+package io
+
+type Writer interface {
+  Write(p []byte) (n int, err error)
+}
+
+var w  io.Writer
+w = os.Stdout         // OK
+w = new(bytes.Buffer) // OK
+w = time.Second       // compile error: time.Duration lacks Write method
+```
+
+- Only the methods revealed by the interface type may be called, even if the
+concrete type has others:
+```
+os.Stdout.Write([]byte("hello"))    // OK
+os.Stdout.Close()                   // OK
+
+var w io.Writer
+w = os.Stdout
+w.Write([]byte("hello"))  // OK
+w.Close()                 // compile error: io.Writer lacks Close method
+```
+
+- An empty interface type `interface{}`, which has no methods at all, places no
+demands on the types that satisfy it, we can assign any value to the empty
+interface.
+```
+var any interface{}
+any = true
+any = 12.34
+any = "hello"
+any = map[]string{"one": 1}
+any = new(bytes.Buffer)
+```
+
+- Each grouping of concrete types based on their shared behaviors can be
+expressed as an interface type. Unlike class-based languages, in which the set
+of interfaces satisfy by a class is explicit, in Go we can define new
+abstractions or groupings of interest when we need them, without modifying the
+declaration if the concrete type. This is particularly useful when the concrete
+type comes from a package written by a different author. Of course, there do
+need to be underlying commonalities in the concrete types.
+
 ## Coding style
 - Normal practice in Go is to deal with the error in the if block and then
 return, so that the successful execution path is not indented.
