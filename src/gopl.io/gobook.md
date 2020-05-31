@@ -1237,6 +1237,19 @@ complete immendiately and yield the zero value of the channel's element type.
 close(ch)
 ```
 
+### Unbuffered Channels
+- A send operation on an unbuffered channel blocks the sending goroutine until
+another goroutine executes a corresponding receive on the same channel, at
+which point the value is transmitted and both goroutines may continue.
+Conversely, if the receive operation was attempted first, the receieving
+goroutine is blocked until another goroutine performs a send on the same
+channel.
+
+- Communiation over an unbuffered channel causes the sending and receiving
+goroutines to synchronize. Because of this, unbuffered channels are sometimes
+called synchronous channels. When a value is sent on an unbuffered channel, the
+receipt of the value happens before the reawakening of the sending goroutine.
+
 
 ## Coding style
 - Normal practice in Go is to deal with the error in the if block and then
