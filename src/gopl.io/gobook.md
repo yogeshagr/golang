@@ -1250,6 +1250,13 @@ goroutines to synchronize. Because of this, unbuffered channels are sometimes
 called synchronous channels. When a value is sent on an unbuffered channel, the
 receipt of the value happens before the reawakening of the sending goroutine.
 
+- Messages sent over channels have two important aspects. Each message has a
+value, but sometimes the fact of communication and the moment at which it occurs
+are just as important. We call messages events when we wish to stress this
+aspect. When the event carries no additional information, that it, its sole
+purpose is synchronization, we'll emphasize this by using a channel whose
+element type is struct{}, though it's common to use a channel of bool or int for
+the same purpose since `done <- 1` is shorter than `done <- struct{}{}`.
 
 ## Coding style
 - Normal practice in Go is to deal with the error in the if block and then
