@@ -1307,6 +1307,51 @@ There is no going back, however: once you have a value of a unidirectional type
 such as `chan<-int`, there is no way to obtain from it a value of type
 `chan int` that refers to the same channel data structure.
 
+### Buffered Channels
+- A buffered channel has a queue of elements. The queue's maximum size is
+determined when it is created, by the capacity argument to make. The statement
+below creates a buffered channel capable of holding three string values.
+```
+ch = make(chan string, 3)
+```
+
+- A send operation on a buffered channel inserts an element at the back of the
+queue, and a receive operation removes an element from the front. If the channel
+is full, the send operation blocks its goroutine until space is made available
+by another goroutine's receive. Conversely, if the channel is empty, a receive
+operation blocks until a value is sent by another goroutine.
+
+- The example below shows an application of a buffered channel. It makes
+parallel requests to three mirrors, that is, equivalent but geographically
+distributed servers. It sends their responses over a buffered channel, then
+receives and returns only the first response, which is the quickest one to
+arrive.
+```
+func mirroredQuery() string {
+	responses := make(chan string, 3)
+	go func() { respones <- request("asia.gopl.io") }()
+	go func() { respones <- request("europe.gopl.io") }()
+	go func() { respones <- request("americas.gopl.io") }()
+	return <-reponses // return the quickest reponse
+}
+```
+Had we used an unbuffered channel, the two slower goroutines would have gotten
+stuck trying to send their responses on a channel from which no goroutine will
+ever receive. This situation, called a goroutine leak, would be a bug. Unlike
+garbage variables, leaked goroutines are not automatically collected, so it is
+important to make sure that goroutines terminate themselves when no longer
+needed.
+
+- The choice between unbuffered and buffered channels, and the choice of a
+buffered channel's capacity, may both affect the correctness of a program.
+Unbuffered channels give stronger synchronization guarantees because every send
+operation is synchronized with its corresponding receive; with buffered
+channels, these operations are decoupled. Also, when we know an upper bound on
+the number of values, that will be sent on a channel, it's not unusual to create
+a buffered channel of that size and perform all the sends before the first value
+is received. Failure to allocate sufficient buffer capacity would cause the
+program to deadlock.
+
 ## Coding style
 - Normal practice in Go is to deal with the error in the if block and then
 return, so that the successful execution path is not indented.
