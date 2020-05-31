@@ -1159,6 +1159,35 @@ dynamic values are equal according to the usual behavior of == for that type.
 Only compare interface values if you are certain that they contain dynamic
 values of comparable types.
 
+### Type Assertions
+- A type assertion is an operation applied to an interface value. Syntactically,
+it looks like x.(T), where x is an expression of an inerface type and T is a
+type, called the "asserted" type. A type assertion checks that the dynamic type
+of its operand matches the asserted type.
+
+- There are two possibilities. First, if the asserted type T is a concrete type,
+then the type assertion checks whether x's dynamic type is identical to T. If
+this check succeeds, the result of the type assertion is x's dynamic value,
+whose type is of course T. In other words, a type assertion to a concrete type
+extracts the concrete value from its operand. If the check fails, then the
+operation panics. For example:
+```
+var w io.Writer
+w = os.Stdout
+f := w.(*os.File)       // success: f == os.Stdout
+c := w.(*bytes.Buffer)  // panic: interface holds *os.File, not *bytes.Buffer
+```
+
+- Second, if instead the asserted type T is an interface type, then the type
+assertion checks whether x's dynamic type satisfies T. If this check succeeds,
+the dynamic value is not extracted; the result is still an interface value with
+the same type and value components, but the result has the interface type T. In
+other words, a type assertion to an interface type changes the type of the
+expression, making a different (and usually larger) set of methods accessible,
+but it preserves the dynamic type and value components inside the interface
+value.
+
+
 ## Coding style
 - Normal practice in Go is to deal with the error in the if block and then
 return, so that the successful execution path is not indented.
