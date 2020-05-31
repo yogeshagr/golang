@@ -1258,6 +1258,24 @@ purpose is synchronization, we'll emphasize this by using a channel whose
 element type is struct{}, though it's common to use a channel of bool or int for
 the same purpose since `done <- 1` is shorter than `done <- struct{}{}`.
 
+### Pipelines
+- Channels can be used to connect goroutines together so that the output of one
+is the input to another. This is called a pipeline.
+
+- After a channel has been closed, any further send operations on it will panic.
+After the closed channel has been drained, that is, after the last sent element
+has been received, all subsequent receive operations will proceed without
+blocking but will yield a zero value.
+
+- We needn't close every channel when we've finished with it. It's only
+necessary to close a channel when it is important to tell the receiving
+goroutines that all data have been sent. A channel that the garbage collector
+determines to be unreachable will have its resources reclaimed whether or not it
+is closed.
+
+- Attempting to close an already-closed channel causes a panic, as does closing
+a nil channel.
+
 ## Coding style
 - Normal practice in Go is to deal with the error in the if block and then
 return, so that the successful execution path is not indented.
