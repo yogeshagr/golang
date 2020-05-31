@@ -1276,6 +1276,29 @@ is closed.
 - Attempting to close an already-closed channel causes a panic, as does closing
 a nil channel.
 
+### Unidirectional Channel Types
+- When a channel is supplied as a function parameter, it is nearly always with
+the intent that it be used exclusively for sending or exclusively for receiving.
+```
+func counter(out chan int)
+func suqarer(out, in chan int)
+func printer(in chan int)
+```
+The names `in` and `out` convey the intention that `in`is used to receive the
+input and `out` is used to send the output. But still, nothing prevents squarer
+from sending to `in` or receiving from out.
+
+To document this intent and prevent misuse, the Go type system provides
+`unidirectional` channel types that expose only one or the other of the send
+and receive operations. The type `chan<-int`, a send-only channel of int, allows
+receives but not sends. (The position of the <- arrow relative to the chan
+keyword is a mnemonic). Violations of this discipline are detected at compile
+time.
+
+Since the close operation asserts that no more sends will occur on a channel,
+only the sending goroutine is in a position to call it, and for this reason it
+is a compile-time error to attempt to close a receive-only channel.
+
 ## Coding style
 - Normal practice in Go is to deal with the error in the if block and then
 return, so that the successful execution path is not indented.
