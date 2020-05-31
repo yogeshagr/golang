@@ -1267,6 +1267,27 @@ After the closed channel has been drained, that is, after the last sent element
 has been received, all subsequent receive operations will proceed without
 blocking but will yield a zero value.
 
+- There is no way to test directly whether a channel has been closed, but there
+is a variant of the receive operation that produces two results: the received
+channel element, plus a boolean value, conventionally called `ok`, which is
+true for a successful receive and false for a receive on a closed and drained
+channel.
+```
+fo func() {
+  for {
+    x, ok := <- naturals
+    if !ok {
+      break // channel was closed and drained
+    }
+    squares <- x * x
+  }
+  close(squares)
+}
+```
+The language lets us use a range loop to iterate over channels too. This is a
+more convenient syntax for receiving all the values sent on a channel and
+terminating the loop after the last one.
+
 - We needn't close every channel when we've finished with it. It's only
 necessary to close a channel when it is important to tell the receiving
 goroutines that all data have been sent. A channel that the garbage collector
