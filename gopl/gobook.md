@@ -1355,3 +1355,8 @@ program to deadlock.
 ## Coding style
 - Normal practice in Go is to deal with the error in the if block and then
 return, so that the successful execution path is not indented.
+
+## References
+- Exercise solutions:
+https://github.com/vinceyuan/gopl-solutions
+https://github.com/torbiak/gopl
