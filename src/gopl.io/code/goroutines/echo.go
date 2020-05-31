@@ -21,7 +21,7 @@ func echo(c net.Conn, shout string, delay time.Duration) {
 func handleFunc(c net.Conn) {
 	input := bufio.NewScanner(c)
 	for input.Scan() {
-		go echo(c, input.Text(), 1*time.Second)
+		echo(c, input.Text(), 1*time.Second)
 	}
 	c.Close()
 }
