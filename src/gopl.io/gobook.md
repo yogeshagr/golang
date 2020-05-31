@@ -1188,10 +1188,54 @@ but it preserves the dynamic type and value components inside the interface
 value.
 
 ## ch8: Goroutines and Channels
+### Goroutines
 - In Go, each concurrently executing activity is called a goroutine.
 
 - When a program starts, its only goroutine is the one that calls the main
 function, so we call it the main goroutine.
+
+### Channels
+- If goroutines are the activities of a concurrent Go program, channels are the
+connections between them. A channel is a communication mechanism that lets one
+goroutine send values to another goroutine. Each channel is a conduit for values
+of a particular type, called the channel's element type. The type of a channel
+whose elements have type int is written `chan int`.
+
+- To create a channel, we use built-in make function:
+```
+ch := make(chan int) // ch has type 'chan int'
+```
+
+- A channel is a reference to the data structure created by make. When we copy a
+channel or pass one as an argument to a function, we are copying a reference, so
+caller and calle refer to the same data structure. As with other reference
+types, the zero value of a channel is nil.
+
+- Two channel of the same type may be compared using ==. The comparison is true
+if both are references to the same channel data structure. A channel may also be
+compared to nil.
+
+- A channel has two principal operations, send and receive, collectively known
+as communications. A send statement transmits a value from one goroutine,
+through the channel, to another goroutine executing a corresponding receive
+expression. Both operations are written using the <- operator. In a send
+statement, the <- separates the channel and value operands. In a receive
+expression, <- preceds the channel operand. A receive expression whose result is
+not used is a valid statement.
+```
+ch <- x     // a send statement
+x = <- ch   // a receive expression in an assignment statement
+<-ch        // a receive statement; result is discarded
+```
+
+- Channel supports a third operation, close, which sets a flag indicating that
+no more values will ever be sent on this channel; subsequent attempts to send
+will panic. Receive operations on a closed channel yield the values that have
+been sent until no more values are left; any receive operations thereafter
+complete immendiately and yield the zero value of the channel's element type.
+```
+close(ch)
+```
 
 
 ## Coding style
