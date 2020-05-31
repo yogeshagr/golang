@@ -29,7 +29,9 @@ func main() {
 	}()
 
 	mustCopy(conn, os.Stdin)
-	conn.Close()
+	if tcpconn, ok := conn.(*net.TCPConn); ok {
+		tcpconn.CloseWrite()
+	}
 	<-done // wait for background goroutine to finish
 }
 
