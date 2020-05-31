@@ -1291,13 +1291,21 @@ from sending to `in` or receiving from out.
 To document this intent and prevent misuse, the Go type system provides
 `unidirectional` channel types that expose only one or the other of the send
 and receive operations. The type `chan<-int`, a send-only channel of int, allows
-receives but not sends. (The position of the <- arrow relative to the chan
-keyword is a mnemonic). Violations of this discipline are detected at compile
-time.
+sends but not receives. Conversely, the type `<-chan int`, a receive-only copy
+channel of int, allows receives but not sends. (The position of the <- arrow
+relative to the chan keyword is a mnemonic). Violations of this discipline are
+detected at compile time.
 
 Since the close operation asserts that no more sends will occur on a channel,
 only the sending goroutine is in a position to call it, and for this reason it
 is a compile-time error to attempt to close a receive-only channel.
+
+- While calling the function with bidirectional channel type as an argument, the
+conversion to unidirectional channel type happens implicitly. Conversions from
+bidirectional to unidirectional channel types are permitted in any assignment.
+There is no going back, however: once you have a value of a unidirectional type
+such as `chan<-int`, there is no way to obtain from it a value of type
+`chan int` that refers to the same channel data structure.
 
 ## Coding style
 - Normal practice in Go is to deal with the error in the if block and then
