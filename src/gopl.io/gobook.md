@@ -1187,6 +1187,12 @@ expression, making a different (and usually larger) set of methods accessible,
 but it preserves the dynamic type and value components inside the interface
 value.
 
+## ch8: Goroutines and Channels
+- In Go, each concurrently executing activity is called a goroutine.
+
+- When a program starts, its only goroutine is the one that calls the main
+function, so we call it the main goroutine.
+
 
 ## Coding style
 - Normal practice in Go is to deal with the error in the if block and then
