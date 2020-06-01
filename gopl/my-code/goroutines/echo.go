@@ -7,23 +7,31 @@ import (
 	"net"
 	"os"
 	"strings"
+	"sync"
 	"time"
 )
 
-func echo(c net.Conn, shout string, delay time.Duration) {
-	fmt.Fprintln(c, "\t", strings.ToUpper(shout))
+func echo(c net.Conn, shout string, delay time.Duration, wg *sync.WaitGroup) {
+	wg.Add(1)
+	defer wg.Done()
+	fmt.Fprintln(c, "\t upper", strings.ToUpper(shout))
 	time.Sleep(delay)
 	fmt.Fprintln(c, "\t", shout)
 	time.Sleep(delay)
-	fmt.Fprintln(c, "\t", strings.ToLower(shout))
+	fmt.Fprintln(c, "\t lower", strings.ToLower(shout))
 }
 
 func handleFunc(c net.Conn) {
+	var wg sync.WaitGroup // number of working goroutines
 	input := bufio.NewScanner(c)
 	for input.Scan() {
-		echo(c, input.Text(), 1*time.Second)
+		go echo(c, input.Text(), 1*time.Second, &wg)
 	}
-	c.Close()
+	wg.Wait()
+	if tcpconn, ok := c.(*net.TCPConn); ok {
+		fmt.Println("server: closing the write end")
+		tcpconn.CloseWrite()
+	}
 }
 
 func main() {

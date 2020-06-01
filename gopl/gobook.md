@@ -1358,7 +1358,7 @@ func mirroredQuery() string {
 ```
 Had we used an unbuffered channel, the two slower goroutines would have gotten
 stuck trying to send their responses on a channel from which no goroutine will
-ever receive. This situation, called a goroutine leak, would be a bug. Unlike
+ever receive. This situation, called a `goroutine leak`, would be a bug. Unlike
 garbage variables, leaked goroutines are not automatically collected, so it is
 important to make sure that goroutines terminate themselves when no longer
 needed.

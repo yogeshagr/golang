@@ -30,7 +30,7 @@ func main() {
 
 	mustCopy(conn, os.Stdin)
 	if tcpconn, ok := conn.(*net.TCPConn); ok {
-		fmt.Println("closing the write end")
+		fmt.Println("client: closing the write end")
 		tcpconn.CloseWrite()
 	}
 	fmt.Println("waiting for goroutine to finish")
