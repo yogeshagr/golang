@@ -1250,6 +1250,15 @@ goroutines to synchronize. Because of this, unbuffered channels are sometimes
 called synchronous channels. When a value is sent on an unbuffered channel, the
 receipt of the value happens before the reawakening of the sending goroutine.
 
+- In discussions of concurrency, when we say x happens before y, we don't mean
+merely that x occurs earlier in time than y; we mean that it is guaranteed to do
+so and that all its prior effects, such as updates to variables, are complete
+and that you may rely on them.
+
+- When x neither happens before y nor after y, we say that x is concurrent with
+y. This doesn't mean that x and y are necessarily simultaneous, merely that we
+cannot assume anything about their ordering.
+
 - Messages sent over channels have two important aspects. Each message has a
 value, but sometimes the fact of communication and the moment at which it occurs
 are just as important. We call messages events when we wish to stress this
