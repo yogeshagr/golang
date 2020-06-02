@@ -4,6 +4,6 @@ import "fmt"
 
 var true = "False"
 
-func main(){
+func main() {
 	fmt.Println(true)
 }
