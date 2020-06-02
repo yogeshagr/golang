@@ -1344,11 +1344,11 @@ from sending to `in` or receiving from out.
 
 To document this intent and prevent misuse, the Go type system provides
 `unidirectional` channel types that expose only one or the other of the send
-and receive operations. The type `chan<-int`, a send-only channel of int, allows
-sends but not receives. Conversely, the type `<-chan int`, a receive-only copy
-channel of int, allows receives but not sends. (The position of the <- arrow
-relative to the chan keyword is a mnemonic). Violations of this discipline are
-detected at compile time.
+and receive operations. The type `chan<-int`, a `send-only` channel of int,
+allows sends but not receives. Conversely, the type `<-chan int`, a
+`receive-only` copy channel of int, allows receives but not sends. (The position
+of the <- arrow relative to the chan keyword is a mnemonic.) Violations of this
+discipline are detected at compile time.
 
 Since the close operation asserts that no more sends will occur on a channel,
 only the sending goroutine is in a position to call it, and for this reason it
@@ -1429,6 +1429,27 @@ the second case; the second form lets you refer to the received value.
 then performs that communication and executes the case's associated statements;
 the other communications do not happen. A `select` with no cases, `select{}`,
 waits forever.
+
+- The time.After function immediately returns a channel, and starts a new
+goroutine that sends a single value on that channel after the specified time.
+The select statement below waits until the first of two events arrives, either
+an abort event or the event indicating that 10 seconds have elapsed. If 10
+seconds go by with no abort, the launch proceeds.
+```
+func main() {
+  // ...create abort channel...
+
+  fmt.Println("Commencing countdown. Press return to abort.")
+  select {
+  case <-time.After(10 * time.Second):
+    // Do nothing.
+  case <-abort:
+    fmt.Println("Launch aborted!")
+    return
+  }
+  launch()
+}
+```
 
 - If multiple cases are ready, select picks one at random, which ensures that
 every channel has an equal chance of being selected. Consider the following
