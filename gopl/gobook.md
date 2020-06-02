@@ -1382,6 +1382,65 @@ a buffered channel of that size and perform all the sends before the first value
 is received. Failure to allocate sufficient buffer capacity would cause the
 program to deadlock.
 
+### Multiplexing with Select
+```
+select {
+  case <- ch1:
+    // ...
+  case x := <-ch2:
+    // ...
+  case ch3 <- y:
+    // ...
+  default:
+    // ...
+}
+```
+- Like a swtich statement, it has a number of cases and an optional default.
+Each case specifies a communication (a send or receive operation on some
+channel) and an associated block of statements. A receive expression may appear
+on its own, as in the first case, or within a short variable declaration, as in
+the second case; the second form lets you refer to the received value.
+
+- A select waits until a communication for some case is ready to proceed. It
+then performs that communication and executes the case's associated statements;
+the other communications do not happen. A `select` with no cases, `select{}`,
+waits forever.
+
+- If multiple cases are ready, select picks one at random, which ensures that
+every channel has an equal chance of being selected. Consider the following
+example:
+```
+ch := make(chan int, 1)
+for i:=0; i < 10; i++ {
+  select {
+    case x := <-ch:
+      fmt.Println(x)
+    case ch <- i:
+  }
+}
+```
+in this increasing the buffer size makes its output nondeterministic, because
+when the buffer is neither full nor empty, the select statement figuratively
+tosses a coin.
+
+- Sometimes we want to try to send or receive on a channel but avoid blocking if
+the channel is not ready - a non-blocking communication. A select statement can
+do that too. A select may have a default, which specifies what to do when none
+of the other communication can proceed immediately.
+```
+select {
+  case <- abort:
+    fmt.Printf("Launch aborted!\n")
+    return
+  default:
+    // do nothing
+}
+```
+
+- The zero value for a channel is nil. Perhaps surprisingly, nil channels are
+sometimes useful. Because send and receive operations on a nil channel block
+forever, a case in a select statement whose channel is nil is never selected.
+
 ## Coding style
 - Normal practice in Go is to deal with the error in the if block and then
 return, so that the successful execution path is not indented.
