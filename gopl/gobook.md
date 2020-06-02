@@ -1259,6 +1259,30 @@ and that you may rely on them.
 y. This doesn't mean that x and y are necessarily simultaneous, merely that we
 cannot assume anything about their ordering.
 
+-
+```
+func main() {
+  conn, err := net.Dial("tcp", "localhost:8000")
+  if err != nil {
+    log.Fatal(err)
+  }
+}
+done := make(chan struct{})
+go func() {
+  io.Copy(os.Stdout, conn)
+  log.Println("done")
+  done <- struct{}{}
+}()
+mustCopy(conn, os.Stdin)
+conn.Close()
+<-done
+```
+When the user closes the standard input stream, mustCopy returns and the main
+goroutine calls conn.Close(), closing both halves of the network connection.
+Closing the write half of the connection causes the server to see an end-of-file
+condition. Closing the read half causes the background goroutine's call io.Copy
+to return a "read from closed connection" error.
+
 - Messages sent over channels have two important aspects. Each message has a
 value, but sometimes the fact of communication and the moment at which it occurs
 are just as important. We call messages events when we wish to stress this
