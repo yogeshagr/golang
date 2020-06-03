@@ -1523,6 +1523,55 @@ helps us maintain concurrency invariants. When you use a mutex, make sure that
 both it and the variables it guards are not exported, whether they are
 package-level variables of the fields of a struct.
 
+- Mutual Exclusion (sync.Mutex): We can use a channel of capacity 1 to ensure
+that at most one goroutine accesses a shared variable at a time. A semaphore
+that counts only to 1 is called a binary semaphore.
+```
+var (
+  sema = make(chan struct{}, 1) // a binary semaphore guarding balance
+  balance int
+)
+
+func Deposit(amount int) {
+  sema <- struct{}{}  // acquire token
+  balance = balance + amount
+  <-sema // release token
+}
+
+func Balance() int {
+  sema <- struct{}{}  // acquire token
+  b := balance
+  <-sema  // release token
+  return b
+}
+```
+This pattern of mutual exclusion is so useful that it is supported directly by
+the Mutex type from the sync package. Its Lock method acquires the token
+(called a lock) and its Unlock method releases it:
+```
+var (
+  mu  sync.Mutex  // guards balance
+  balance int
+)
+
+func Deposit(amount int) {
+  mu.Lock()
+  balance = balance + amount
+  mu.Unlock()
+}
+
+func Balance() int {
+  mu.Lock()
+  b := balance
+  mu.Lock()
+  return b
+}
+```
+
+- Concurrency problems can be avoided by the consistent use of simple,
+established patterns. Where possible, confine variables to a single goroutine;
+for all other variables, use mutual exclusion.
+
 ## Coding style
 - Normal practice in Go is to deal with the error in the if block and then
 return, so that the successful execution path is not indented.
