@@ -1515,6 +1515,14 @@ sharing memory; instead, share memory by communicating".
 - The third way to avoid a data race is to allow many goroutines to access the
 variable, but only one at a time. This approach is known as mutual exclusion.
 
+- With concurrent programs, favor clarity and resist premature optimization.
+
+- Encapsulation by reducing unexported interactions in a program, helps us
+maintain data structure invariants. For the same reason, encapsulation also
+helps us maintain concurrency invariants. When you use a mutex, make sure that
+both it and the variables it guards are not exported, whether they are
+package-level variables of the fields of a struct.
+
 ## Coding style
 - Normal practice in Go is to deal with the error in the if block and then
 return, so that the successful execution path is not indented.
