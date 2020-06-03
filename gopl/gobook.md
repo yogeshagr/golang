@@ -1238,6 +1238,9 @@ close(ch)
 ```
 
 ### Unbuffered Channels
+- If the capacity is zero or absent, the channel is unbuffered and communication
+succeeds only when both a sender and a receiver are ready.
+
 - A send operation on an unbuffered channel blocks the sending goroutine until
 another goroutine executes a corresponding receive on the same channel, at
 which point the value is transmitted and both goroutines may continue.
@@ -1485,6 +1488,32 @@ select {
 - The zero value for a channel is nil. Perhaps surprisingly, nil channels are
 sometimes useful. Because send and receive operations on a nil channel block
 forever, a case in a select statement whose channel is nil is never selected.
+
+## ch9: Concurrency with shared variables
+- Consider a function that works correctly in a sequential program. That
+function is concurrency-safe if it continues to work correctly even when called
+concurrently, that is, from two or more goroutines with no additional
+synchronization.
+
+- A race condition is a situation in which the program does not give the correct
+result for some interleavings of the operations of multiple goroutines.
+
+- Data race: A data race occurs whenever two goroutines access the same variable
+concurrently and at least one the accesses is a write. It follows from this
+definition that there are three ways to avoid a data race.
+
+- The first way is not to write the variable. Data structures that are never
+modified or are immutable are inherently concurrency-safe and need no
+synchronization.
+
+- The second way to avoid a data race is to avoid accessing the variable from
+multiple goroutines. Since other goroutines cannot access the variable directly,
+they must use a channel to send the confining goroutine a request to query or
+update the variable. This is what meant by mantra "Do not communicate by
+sharing memory; instead, share memory by communicating".
+
+- The third way to avoid a data race is to allow many goroutines to access the
+variable, but only one at a time. This approach is known as mutual exclusion.
 
 ## Coding style
 - Normal practice in Go is to deal with the error in the if block and then
