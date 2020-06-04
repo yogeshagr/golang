@@ -1572,6 +1572,11 @@ func Balance() int {
 established patterns. Where possible, confine variables to a single goroutine;
 for all other variables, use mutual exclusion.
 
+- Lazy Initialization: It is a good practice to defer an expensive
+initialization step until the moment it is needed. Initializing a variable up
+front increases the start-up latency of a program and is unncessary if execution
+doesn't always reach the part of the program that uses that variable.
+
 ## Coding style
 - Normal practice in Go is to deal with the error in the if block and then
 return, so that the successful execution path is not indented.
