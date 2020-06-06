@@ -1614,7 +1614,7 @@ that none will ever occur.
 and memory to run, but the overhead is tolerable even for many production jobs.
 
 ### GOMAXPROCS
-- The Go scheduler uses a parameter called GOMAXPROCS to determine how many OS
+- The Go scheduler uses a parameter called `GOMAXPROCS` to determine how many OS
 threads may be actively executing Go code simultaneously. Its default value is
 the number of CPUs on the machine, so on a machine with 8 CPUs, the scheduler
 will schedule Go code on up to 8 OS threads at once. (GOMAXPROCS is the n in
@@ -1622,6 +1622,19 @@ m:n scheduling.)
 
 - We can explicitly control this parameter using the `GOMAXPROCS` environment
 variable or the `runtime.GOMAXPROCS` function.
+
+## ch10: Packages and the go tool
+### Pacakge Declaration
+- A package declaration is required at the start of every Go source file. Its
+main purpose is to determine the default indentifier for that package (called
+the package name) when it is imported by another package.
+
+- A package defining a command (an executable Go program) always has the name
+`main`, regardless of the package's import path.
+
+### Import Declarations
+- A Go source file may contain zero or more import declarations immediately
+after the package declaration and before the first non-import declaration.
 
 ## Coding style
 - Normal practice in Go is to deal with the error in the if block and then
