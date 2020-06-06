@@ -1636,6 +1636,16 @@ the package name) when it is imported by another package.
 - A Go source file may contain zero or more import declarations immediately
 after the package declaration and before the first non-import declaration.
 
+- Blank imports: On occasion we must import a package merely for the side
+effects of doing so: evaluation of the initializer expressions of its
+package-level variables and execution of its init functions. To suppress the
+"unused import" error we would otherwise encounter, we must use a renaming
+import in which the alternative name is `_`, the blank identifier. As usual the
+blank identifier can never be referenced.
+```
+import _ "image/png"
+```
+
 ## Coding style
 - Normal practice in Go is to deal with the error in the if block and then
 return, so that the successful execution path is not indented.
