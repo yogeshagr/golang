@@ -1646,6 +1646,29 @@ blank identifier can never be referenced.
 import _ "image/png"
 ```
 
+### Go Tool
+- The only configuration most users ever need is the `GOPATH` environment
+variable, which specifies the root of the workspace. When switching to a
+different workspace, users update the value of GOPATH.
+```
+$ export GOPATH=$HOME/gobook
+$ go get gopl.io/...
+```
+
+- A second environment variable, `GOROOT`, specifies the root directory of the
+GO distribution, which provides all the pacakges of the standard library. For
+example, the source files of the fmt package resides in the `$GOROOT/src/fmt`
+directory.
+
+- The `go env` command prints the effective values of the environment variables.
+
+- The `go get -u` command generally retreives the latest version of each
+package, which is convenient when you're getting started but may be
+inappropriate for deployed projects, where precise control of dependencies is
+critical for release hygiene. The usual solution to this problem is to vendor
+the code, that is, to make a persistent local copy of all the necessary
+dependencies, and to update this copy carefully and deliberately.
+
 ## Coding style
 - Normal practice in Go is to deal with the error in the if block and then
 return, so that the successful execution path is not indented.
