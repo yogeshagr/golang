@@ -1577,6 +1577,33 @@ initialization step until the moment it is needed. Initializing a variable up
 front increases the start-up latency of a program and is unncessary if execution
 doesn't always reach the part of the program that uses that variable.
 
+### Race Detector
+- Go runtime and toolchain are equipped with a sophisticated and easy-to-use
+dynamic analysis tool, the race detector.
+
+- Adding the `-race` flag to your go build, go run, or go test command causes
+the compiler to build a modified version of the application or test with
+additional instrumentation that effectively records all accesses to shared
+variables that occurred during execution, along with the identity of the
+goroutine that read or wrote the variable. In addition, the modified program
+records all synchronization events, such as go statements, channel operations,
+and calls to (*sync.Mutex), (*synch.WaitGroup).Wait, and so on.
+
+- The race detector studies this stream of events, looking for cases in which
+one goroutine reads or writes a shared variable that was mostly  writtenn by a
+different goroutine without an intervening synchronization operation. This
+indicates a concurrent access to the shared variable, and thus a data race. The
+tool prints a report that indicates the identity of the variable, and the state
+of active function calls in the reading goroutine and the writing goroutine.
+This is actually sufficient to pinpoint the problem.
+
+- The race detector reports all data races that were actually executed. However,
+it can only detect race conditions that occur during a run; it cannnot prove
+that none will ever occur.
+
+- Due to extra bookkeeping, a program built with race detection needs more time
+and memory to run, but the overhead is tolerable even for many production jobs.
+
 ## Coding style
 - Normal practice in Go is to deal with the error in the if block and then
 return, so that the successful execution path is not indented.
