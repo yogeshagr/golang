@@ -1613,6 +1613,16 @@ that none will ever occur.
 - Due to extra bookkeeping, a program built with race detection needs more time
 and memory to run, but the overhead is tolerable even for many production jobs.
 
+### GOMAXPROCS
+- The Go scheduler uses a parameter called GOMAXPROCS to determine how many OS
+threads may be actively executing Go code simultaneously. Its default value is
+the number of CPUs on the machine, so on a machine with 8 CPUs, the scheduler
+will schedule Go code on up to 8 OS threads at once. (GOMAXPROCS is the n in
+m:n scheduling.)
+
+- We can explicitly control this parameter using the `GOMAXPROCS` environment
+variable or the `runtime.GOMAXPROCS` function.
+
 ## Coding style
 - Normal practice in Go is to deal with the error in the if block and then
 return, so that the successful execution path is not indented.
