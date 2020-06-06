@@ -1567,6 +1567,15 @@ func Balance() int {
   return b
 }
 ```
+Mutex guards the shared variables. By convention, the variables guarded by a
+mutex are declared immediately after the declaration of the mutex itself.
+
+The program above exemplifies a common concurrency pattern. A set of exported
+functions encapsulates one or more variables so that the only way to access the
+variables is through these functions. Each function acquires a mutex lock at the
+beginning and releases it at the end, thereby ensuring that the shared variables
+are not accessed concurrently. This arrangement of functions, mutex lock, and
+variables is called a monitor.
 
 - Concurrency problems can be avoided by the consistent use of simple,
 established patterns. Where possible, confine variables to a single goroutine;
