@@ -1718,6 +1718,13 @@ $ go test -v
 $ go test -v -run="French|Canal"
 ```
 
+- Tests are independent of each other. If an early entry in the table causes the
+test to fail, later table entries will still be checked, and thus we may learn
+about multiple failures during a single run. When we really must stop a test
+function, we use `t.Fatal` or `t.Fatalf`.
+
+- Test failure messages are usually of the form "f(x) = y, want z".
+
 ## Coding style
 - Normal practice in Go is to deal with the error in the if block and then
 return, so that the successful execution path is not indented.
