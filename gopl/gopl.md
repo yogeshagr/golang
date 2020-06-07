@@ -1725,6 +1725,43 @@ function, we use `t.Fatal` or `t.Fatalf`.
 
 - Test failure messages are usually of the form "f(x) = y, want z".
 
+### White-Box Testing
+- A black-box test assumes nothing about the package other than what is exposed
+by its API and specified by its documentation; the package's internals are
+opaque. In contrast, a white-box test has privileged access to the internal
+functions and data structures of the package and can make observations and
+changes that an ordinary client cannot. For example, a white-box test can check
+that the invariants of the package's data types are maintained after every
+operation.
+
+- The key to a good test is to start by implementing the concrete behavior that
+you want and only then use functions to simplify the code and eliminate
+repitition. Best results are rarely obtained by starting with a library of
+abstract, generic testing functions.
+
+### Avoiding Brittle Tests
+- The easiest way to avoid brittle tests is to check only the properties you
+care about. Test your program's simpler and more stable interfaces in preference
+to its internal functions. Be selective in your assertions. Don't check for
+exact string matches, for example, but look for relevant substrings that will
+remain unchanged as the program evolves.
+
+### Coverage
+- The degree to which a test suite exercises the package under test is called
+the test's coverage. Coverage can't be quantified directly - the dynamics of all
+but most trivial programs are beyond precise measurement - but there are
+heuristics that can help us direct our testing efforts to where they are more
+likely to be useful.
+
+- Statement coverage is the simplest and most widely used of these heuristics.
+The statement coverage of a test suite is the fraction of source statements that
+are executed at least once during the test.
+
+- To get the summary of the test coverage use:
+```
+$ go test -cover
+```
+
 ## Coding style
 - Normal practice in Go is to deal with the error in the if block and then
 return, so that the successful execution path is not indented.
