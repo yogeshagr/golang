@@ -1690,6 +1690,34 @@ The go test tool scans the *_test.go files for these special functions,
 generates a temporary main package that calls them all in the proper way, builds
 and runs it, reports the results, and then clean up.
 
+### Test Functions
+- Each test file must import the `testing` package. Test functions have the
+following signature:
+```
+func TestName(t *testing.T) {
+  // ...
+}
+```
+
+Test function names must begin with Test; the optional suffix Name must begin
+with a capital letter:
+```
+func TestSin(t *testing.T) { /* ... */}
+func TestCos(t *testing.T) { /* ... */}
+func TestLog(t *testing.T) { /* ... */}
+```
+
+- It's a good practice to write the tests first and observe that it triggers the
+same failure described by the user's bug report. Only then can we be confident
+that whatever fix we come up with addresses the right problem.
+
+- The `-run` flag runs only those tests whose function name matches the pattern.
+```
+$ go test
+$ go test -v
+$ go test -v -run="French|Canal"
+```
+
 ## Coding style
 - Normal practice in Go is to deal with the error in the if block and then
 return, so that the successful execution path is not indented.
