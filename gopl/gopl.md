@@ -784,6 +784,9 @@ approach Go takes to error handling.
 
 - Go demands that more attention be paid to error-handling logic.
 
+- Go's error is just an interface for a type that has an `Error() string`
+method.
+
 #### Error-handling strategies
 There are five strategies for handling errors:
 
@@ -1761,6 +1764,55 @@ are executed at least once during the test.
 ```
 $ go test -cover
 ```
+
+### Benchmark Functions
+- Benchmarking is the practice of measuring the performance of a progaram on a
+fixed workload. In Go, a benchmark function looks like a test function, but with
+the Benchmark prefix and a `*testing.B` parameter that provides most of the same
+methods as a `*testing.T`, plus a few extra related to performance measurement.
+It also exposes an integer field N, which specifies the number of times to
+perform the operation being measured.
+
+- The argument to the `-bench` flag selects which benchmarks to run. It is a
+regular expression matching the names of Benchmark functions, with a default
+value that matches none of them.
+```
+$ go test -bench=.
+goos: darwin
+goarch: amd64
+BenchmarkIsPalindrome-8          3462243               348 ns/op
+PASS
+ok      _/Users/yogeshagrawal/work/self/golang/gopl/my-code/testing/palindrome  1.575s
+```
+
+- The fastest program is often the one that makes the fewest memory allocations.
+The `-benchmem` command-line flag will include memory allocation statistics in
+its report.
+```
+$ go test -bench=. -benchmem
+goos: darwin
+goarch: amd64
+BenchmarkIsPalindrome-8          7333809               160 ns/op             128 B/op          1 allocs/op
+PASS
+ok      _/Users/yogeshagrawal/work/self/golang/gopl/my-code/testing/palindrome  1.358s
+```
+
+- In many settings the interesting performance questions are about the relative
+timings of two different operations. For example, if a function takes 1 ms to
+prcess 1,000 elements, how long will it take to process 10,000 or a million?
+Such comparisons reveal the asymptotic growth of the running time of the
+function. Another example: what is the best size for an I/O buffer? Benchmarks
+of application throughput over a range of sizes can help us choose the smallest
+buffer that delivers satisfactory performance. A third example: which algorithm
+performs best for a given job? Benchmarks that evaluate two different algorithms
+on the same input data can often show the strengths and weaknesses of each one
+on important or representative workloads.
+
+Patterns revealed by comparative benchmarks are particularly useful during
+program design, but we don't throw the benchmarks away when the program is
+working. As the program evolves, or its input grows, or it is deployed on new
+operating systems or processors with different characteristics, we can reuse
+those benchmarks to revisit design decisions.
 
 ## Coding style
 - Normal practice in Go is to deal with the error in the if block and then
