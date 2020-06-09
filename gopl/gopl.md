@@ -1814,6 +1814,56 @@ working. As the program evolves, or its input grows, or it is deployed on new
 operating systems or processors with different characteristics, we can reuse
 those benchmarks to revisit design decisions.
 
+### Profiling
+- Benchmarks are useful for measuring the performance of specific operations,
+but when we're trying to make a slow program faster, we often have no idea where
+to begin.
+
+- When we wish to look carefully at the speed of our programs, the best
+technique for identifying the critical code is profiling. Profiling is an
+automated approach to performance measurement based on sampling a number of
+profile events during execution, then extrapolating from them during a
+post-processing step; the resulting statistical summary is called profiling.
+
+- A CPU profile identifies the functions whose execution requires the most CPU
+time.
+
+A heap profile identifies the statements responsible for allocating the most
+memory.
+
+A blocking profile identifies the operations responsible for blocking goroutines
+the longest, such as system calls, channel sends and receives, and acquisitions
+of locks.
+
+- Gathering a profile for code under test is as easy as enabling one of the
+flags below:
+```
+$ go test -cpuprofile=cpu.out
+$ go test -blockprofile=block.out
+$ go test -memprofile=mem.out
+```
+
+- It is usually better to profile specific benchmarks that have been constructed
+to be representative of workloads one cares about. Benchmarking test cases is
+almost never representative, which is why we disabled them by using the filter
+`-run=None`.
+```
+$ go test -run=None -bench=. -cpuprofile=cpu.out
+$ go tool pprof -text ./palindrome.test cpu.out
+File: palindrome.test
+Type: cpu
+Time: Jun 9, 2020 at 7:15am (BST)
+Duration: 203.15ms, Total samples = 10ms ( 4.92%)
+Showing nodes accounting for 10ms, 100% of 10ms total
+      flat  flat%   sum%        cum   cum%
+      10ms   100%   100%       10ms   100%  runtime.kevent
+         0     0%   100%       10ms   100%  runtime.gcMarkTermination.func3
+         0     0%   100%       10ms   100%  runtime.mstart
+         0     0%   100%       10ms   100%  runtime.netpoll
+         0     0%   100%       10ms   100%  runtime.startTheWorldWithSema
+         0     0%   100%       10ms   100%  runtime.systemstack
+```
+
 ## Coding style
 - Normal practice in Go is to deal with the error in the if block and then
 return, so that the successful execution path is not indented.
