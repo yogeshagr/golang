@@ -1864,6 +1864,11 @@ Showing nodes accounting for 10ms, 100% of 10ms total
          0     0%   100%       10ms   100%  runtime.systemstack
 ```
 
+## ch13: Low-level programming
+- A pointer identifies a variable without revealing the variable's numeric
+address. Addresses may change as the garbage collector moves variables; pointers
+are transparently updated.
+
 ## Coding style
 - Normal practice in Go is to deal with the error in the if block and then
 return, so that the successful execution path is not indented.
