@@ -466,12 +466,18 @@ var a [3]int
 fmt.Println(a[0])
 fmt.Println(a[len(a)-1])
 ```
-
 - The size of an array is part of its type, so [3]int and [4]int are different
 types.
+
+- While declaring array if the length is given as `...`, Go will identify the
+length of the array based on the number of elements that are initialized.
+
+- Examples of declarations:
 ```
+array := [...]int{10, 20, 30, 40, 50}
 var q [3]int = [3]int{1, 2, 3}
 q := [3]int{1, 2, 3}
+array := [5]*int{0: new(int), 1: new(int)}
 ```
 
 - Arrays are valuable data structures because the memory is allocated
@@ -500,6 +506,11 @@ these reasons, other than special cases, arrays are seldom used as a function
 parameters or results; instead, we use slices.
 
 ### Slices
+- Slices are built around the concept of dynamic arrays that can grow and shrink
+as you see fit. They're flexible in terms of growth because they have their own
+built-in function called `append`, which can grow a slice quickly with
+efficiency.
+
 - Slices represent variable-length sequence whose elements all have the same
 type. A slice type is written []T, where the elements have type T; it looks like
 an array type without a size.
@@ -542,6 +553,12 @@ s = []int(nil)  // len(s) == 0, s == nil
 s = []int{}     // len(s) == 0, s != nil
 ```
 
+- nil slice vs empty slice:
+```
+var slice []int     // nil slice
+var slice []int{}   // empty slice
+```
+
 - The built-in function make creates a slice of a specified element type,
 length, and capacity. The capacity argument may be omitted, in which case the
 capacity equals the length.
@@ -551,6 +568,55 @@ make([]T, len, cap)
 ```
 Under the hood, make creates an unnamed array variable and returns a slice of
 it; the array is accessible only through the returned slice.
+
+#### Growing slices
+A slice can only access indexes up to its length. Trying to access an element
+outside of its length will cause a runtime exception. The elements associated
+with a slice's capacity are only available for growth. They must be incorporated
+into the slice's length before they can be used.
+```
+slice := []int{1, 2, 3, 4}
+newSlice := slice[1:3]
+
+// This element does not exist for newSlice.
+newSlice[3] = 45
+
+Runtime Exception:
+panic: runtime error: index out of range
+```
+
+Having capacity is great, but useless if you can't incorporate it into your
+slice's length. For this built-in function `append` comes to the rescue:
+```
+slice := []int{1, 2, 3, 4}
+
+newSlice := slice[1:3]
+
+newSlice = append(newSlice, 5)
+```
+The append function will always increase the length of the new slice. The
+capacity, on the other hand, may or may not be affected, depending on the
+available capacity of the source slice.
+
+- Passing a slice between two functions requires nothing more than passing the
+slice by value. Since the size of a slice is small, it's cheap to copy and pass
+between functions. Let's create a large slice and pass that slice by value to
+our function:
+```
+slice := make([]int, 1e6)
+
+slice = foo(slice)
+
+func foo(slice []int) []int {
+  ...
+  return slice
+}
+```
+On a 64-bit architecture, a slice requires 24 bytes of memory. The pointer
++ lenth + capacity feilds require 8 bytes each respectively in total 24 bytes.
+Passing the 24 bytes between functions is fast and easy. This is the beauty of
+slices. You don't need to pass pointers around and deal with complicated syntax.
+
 
 ### Maps
 - A map is a reference to a hash table, and a map type is written map[K]V, where
