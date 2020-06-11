@@ -1,4 +1,2 @@
 - rob pike's written material on golang
-- closure
-- performance comparison between jvm runtime and go runtime inside container.
 - Read the "profiling go programs" article on the go blog.
