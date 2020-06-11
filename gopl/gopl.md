@@ -474,6 +474,14 @@ var q [3]int = [3]int{1, 2, 3}
 q := [3]int{1, 2, 3}
 ```
 
+- Arrays are valuable data structures because the memory is allocated
+sequentially. Having memory in a contiguous form can help to keep the memory you
+use stay loaded within CPU caches longer. Using index arithmetic, you can
+iterate through all the elements of an array quickly. The type information for
+the array provides the distance in memory you have to move to find each element.
+Since each element is of the same type and follows each other sequentially,
+moving through the array is consistent and fast.
+
 - We can pass a pointer to an array so that any modifications the function makes
 to array elements will be visible to the caller. This function zeros the
 contents of a [32]byte array.
