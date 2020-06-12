@@ -614,11 +614,15 @@ func foo(slice []int) []int {
 ```
 On a 64-bit architecture, a slice requires 24 bytes of memory. The pointer
 + lenth + capacity feilds require 8 bytes each respectively in total 24 bytes.
-Passing the 24 bytes between functions is fast and easy. This is the beauty of
-slices. You don't need to pass pointers around and deal with complicated syntax.
-
+Passing the 24 bytes between functions is fast and easy. Only the slice is being
+copied, not the underlying array. This is the beauty of slices. You don't need
+to pass pointers around and deal with complicated syntax.
 
 ### Maps
+- Maps are collection, and you can iterate over them just like you do with
+arrays and slices. But maps are unordered collections, there's no way to predict
+the order in which the key/value pairs will be returned.
+
 - A map is a reference to a hash table, and a map type is written map[K]V, where
 K and V are the type of its keys and values. All of the keys in a given map are
 of the same type, and all of the values are of the same type, but the keys need
@@ -633,6 +637,7 @@ var ages map[string]int
 fmt.Println(ages == nil) // "true"
 fmt.Println(len(ages) == 0) // "true"
 ```
+
 Storing to a nil map causes a panic:
 ```
 ages["carol"] = 21 // panic: assignment to entry in nil map
@@ -693,6 +698,8 @@ func Count(list []string) int {
   return m[k(list)]
 }
 ```
+
+- Passing a map between two functions doesn't make a copy of the map.
 
 ### Structs
 - These two statements declare a struct type called Employee and a variable
