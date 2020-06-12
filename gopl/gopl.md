@@ -1109,6 +1109,26 @@ function associated with a particular type. An object-oriented program is one
 that uses methods to express the properties and operations of each data
 structure so that clients need not access the object's representation directly.
 
+- Declaring a method
+```
+func (u user) notify() {
+  fmt.Printf("Sending User Email To %s<%s>\n",
+  u.name,
+  u.email)
+}
+
+func (u *user) changeEmail(email string) {
+  u.email = email
+}
+```
+The parameter between the keyword `func` and the function name is called a
+`receiveer` and binds the function to the specific type. When a function has a
+receiver, that function is called a `method`.
+
+Value receivers operate on a copy of the value used to make the method call and
+pointer receivers operate on the actual value. You can also call methods that
+are declared with a pointer receiver using a value.
+
 - We will show how to define and use methods effectively. We will also cover two
 key principles of object-oriented programming, encapsulation and composition.
 
