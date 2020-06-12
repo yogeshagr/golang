@@ -1263,6 +1263,10 @@ dynamic values are equal according to the usual behavior of == for that type.
 Only compare interface values if you are certain that they contain dynamic
 values of comparable types.
 
+- If you implement an interface using a pointer receiver, then only pointers of
+that type implement the interface. If you implement an interface using a value
+receiver, then both values and pointers of that type implement the interface.
+
 ### Type Assertions
 - A type assertion is an operation applied to an interface value. Syntactically,
 it looks like x.(T), where x is an expression of an inerface type and T is a
