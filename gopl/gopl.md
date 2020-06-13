@@ -1798,6 +1798,14 @@ The go test tool scans the *_test.go files for these special functions,
 generates a temporary main package that calls them all in the proper way, builds
 and runs it, reports the results, and then clean up.
 
+### Unit testing
+- A unit test is a function that tests a specific piece or set of code from a
+package or program. The job of the test is to determine whether the code in
+question is working as expected for a given scenario. One scenario may be a
+positive-path test, where the test is making sure the normal execution of the
+code doesn't produce an error. Other unit tests may test negative-path scenarios
+to make sure the code produces not only an error, but the expected one.
+
 ### Test Functions
 - Each test file must import the `testing` package. Test functions have the
 following signature:
