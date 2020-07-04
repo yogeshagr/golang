@@ -642,7 +642,12 @@ Storing to a nil map causes a panic:
 ```
 ages["carol"] = 21 // panic: assignment to entry in nil map
 ```
-You must allocate the map before you can store into it.
+
+You must allocate the map before you can store into it. To initialize a map,
+use the built in make function:
+```
+m = make(map[string]int)
+```
 
 - While accessing a map, if the key is present in the map, you get the
 corresponding value; if not, you get the zero value for the element type.
@@ -700,6 +705,8 @@ func Count(list []string) int {
 ```
 
 - Passing a map between two functions doesn't make a copy of the map.
+
+- Read more on maps - https://blog.golang.org/maps.
 
 ### Structs
 - These two statements declare a struct type called Employee and a variable
