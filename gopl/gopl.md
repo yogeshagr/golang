@@ -1993,6 +1993,32 @@ are transparently updated.
 - Normal practice in Go is to deal with the error in the if block and then
 return, so that the successful execution path is not indented.
 
+## Debugging
+- Installing `delve`:
+```
+$ go get -u github.com/derekparker/delve/cmd/dlv
+```
+
+- Start delve on a project:
+```
+$ pwd
+~/work/self/gopl/mycode
+$ dlv debug ./3sum
+Type 'help' for list of commands.
+(dlv)
+```
+
+- Navigating around at the command line:
+```
+(dlv) b main.main
+Breakpoint 1 set at 0x49c3a8 for main.main() ./hello/hello.go:25
+(dlv) c
+(dlv) n
+(dlv) b 253
+```
+
+- Reference: https://www.jamessturtevant.com/posts/Using-the-Go-Delve-Debugger-from-the-command-line/
+
 ## References
 - Exercise solutions:
 https://github.com/vinceyuan/gopl-solutions
