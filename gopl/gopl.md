@@ -598,6 +598,11 @@ The append function will always increase the length of the new slice. The
 capacity, on the other hand, may or may not be affected, depending on the
 available capacity of the source slice.
 
+- Prepending a slice can be done as follows:
+```
+x = append([]int{1}, x...)
+```
+
 - Passing a slice between two functions requires nothing more than passing the
 slice by value. Since the size of a slice is small, it's cheap to copy and pass
 between functions. Let's create a large slice and pass that slice by value to
