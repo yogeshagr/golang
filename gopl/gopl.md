@@ -870,6 +870,28 @@ func main() {
 }
 ```
 
+### First class functions
+- Golang allows functions to be assigned to variables, passed as arguments to
+other functions and returned from other functions.
+
+#### Higher-order functions
+- The definition of higher-order function is a function which does at least one
+of the following:
++ takes one or more functions as arguments
++ returns a function as its result
+
+#### Closures
+- Closures are a special case of anonymous functions. Closures are anonymous
+functions which access the variables defined outside the body of the function.
+```
+func main() {
+    a := 5
+    func() {
+        fmt.Println("a =", a)
+    }()
+}
+```
+
 ### Errors
 - Errors are an important part of a package's API or an application's user
 interface, and failure are just one of several expected behaviors. This is the
