@@ -3,9 +3,9 @@
 ## Ch1: Tutorial
 
 - Package: Go code is organized into packages, which are similar to libraries or
-modules in other languages. A package consits of one or more .go source files in
-a single directory that define what the package does. Each source file begins
-with a package declaration,that states which package the file belongs to,
+modules in other languages. A package consits of one or more `.go` source files
+in a single directory that define what the package does. Each source file begins
+with a package declaration, that states which package the file belongs to,
 followed by a list of other packages that it imports, and then the declarations
 of the program that are stored in that file.
 
@@ -13,9 +13,9 @@ of the program that are stored in that file.
 library. Within package main the function main is also special - it's where
 execution of the program begins.
 
-- A function declaration consists of the keyword func, the name of the function,
-a parameter list, a result list, and the body of the function - the statements
-that define what id does - enclosed in braces.
+- A function declaration consists of the keyword `func`, the name of the
+function, a parameter list, a result list, and the body of the function - the
+statements that define what it does - enclosed in braces.
 
 - Variable can be declared in any of the following forms:
 ```
@@ -58,8 +58,8 @@ small set of basic constructs. Variables store values. Simple expressions are
 combined into larger ones with operations like addition and subtraction. Basic
 types are collected into aggregates like arrays and structs. Expressions are
 used in statements whose execution order is determined by control-flow
-statements like if and for. Statements are grouped into functions for isolation
-and reuse. Functions are gathered into source files and packages.
+statements like "if" and "for". Statements are grouped into functions for
+isolation and reuse. Functions are gathered into source files and packages.
 
 ### Names
 - Go has 25 keywords like "if" and "switch" that may be used only where the
@@ -144,7 +144,7 @@ multiple values:
 var f, err = os.Open(name)
 ```
 
-#### Variable Declaration
+#### Short Variable Declaration
 - Within a function, an alternate form called a short variable declaration may
 be used to declare and initialize local variables. It takes the form
 ```
@@ -172,6 +172,11 @@ so this code will not compile.
 f, err := os.Open(infile)
 f, err := os.Create(outfile) // compile error: no new variables
 ```
+The fix is to use an ordinary assignment for the second statement.
+
+- A short variable declaration acts like an assignment only to variables that
+were already declared in the same lexical block; declarations in an outer block
+are ignored.
 
 ### Pointers
 - A pointer value is the address of a variable. A pointer is thus the location
@@ -181,7 +186,7 @@ at which a value is stored.
 yields a pointer to an integer variable, that is, a value of type *int, which is
 pronounced "pointer to int". If this value is called p, we say "p points to x",
 or equivalentaly "p contains the address of x". The variable to which p points
-is written *p. The expression *p yields the value of that variable, an int.
+is written "*p". The expression "*p" yields the value of that variable, an int.
 ```
 x := 1
 p := &x         // p, of type *int, points to x
@@ -248,14 +253,14 @@ func g() {
 }
 ```
 Here, x must be heap-allocated because it is still reachable from the vraiable
-global after f has returned, despite being declared as a local variable; we say
-`x escapes from f`. Conversely, when g returns, the variable *y becomes
-unreachable and can be recycled. Since *y does not escape from g, it's safe for
-the compiler to allocate *y on the stack, even though it was allocated with new.
-In any case, the notion of escaping is not something that you need to worry
-about in order to write correct code, though it's good to keep in mind during
-performance optimization, since each variable that escapes requires an extra
-memory allocation.
+"global" after "f" has returned, despite being declared as a local variable; we
+say `x escapes from f`. Conversely, when "g" returns, the variable "*y" becomes
+unreachable and can be recycled. Since "*y" does not escape from "g", it's safe
+for the compiler to allocate "*y" on the stack, even though it was allocated
+with new. In any case, the notion of escaping is not something that you need to
+worry about in order to write correct code, though it's good to keep in mind
+during performance optimization, since each variable that escapes requires an
+extra memory allocation.
 
 - To write efficient programs you still need to be aware of the lifetime of
 variables.
