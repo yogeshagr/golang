@@ -33,8 +33,8 @@ mechanism that allows one goroutine to pass values of a specified type to
 another goroutine. The function main runs in a goroutine and the "go" statement
 creates additional goroutines.
 
-- Go allows a simple statement such as a local variable declaration to preceded
-the if condition, which is particularly useful for error handling as in this
+- Go allows a simple statement such as a local variable declaration to precede
+the "if condition", which is particularly useful for error handling as in this
 example:
 ```
 err := r.ParseForm()
@@ -48,7 +48,7 @@ if err := r.ParseForm(); err != nil {
 		log.Print(err)
 }
 ```
-Combining the statements is shorter and reduces the scope of the variable err,
+Combining the statements is shorter and reduces the scope of the variable `err`,
 which is a good practice.
 
 ## ch2: Program Structure
@@ -72,8 +72,8 @@ const       fallthrough     if        range         type
 continue    for             import    return        var
 ```
 
-- In addition, there are about three dozen predeclared names like int and true
-for built-in contants, types, and functions:
+- In addition, there are about three dozen predeclared names like "int" and
+"true" for built-in contants, types, and functions:
 ```
 Constants:    true    false   iota        nil
 
@@ -116,7 +116,7 @@ it, and sets its initial value. Each declaraion has the general form
 ```
 var name type = expression
 ```
-Either the "type" or the "=" expression part may be omitted, but not both. If
+Either the "type" or the "= expression" part may be omitted, but not both. If
 the type is omitted, it is determined by the initializer expression. If the
 expression is omitted, the initial value is the zero value for the type, which
 is 0 for numbers, false for booleans, "" for strings, and nil for interfaces
@@ -307,7 +307,7 @@ permitted but is usually redundant.
 - Conversions are also allowed between numeric types, and between string and
 some slice types. These conversions may change the representation of the value.
 For example converting a floating-point number to an integer discards any
-fractional part, and converting to string to a []byte slice allocates a copy of
+fractional part, and converting a string to a []byte slice allocates a copy of
 the string data. In any case, a conversion never fails at run time.
 
 - Named types also make it possible to define new behaviors for values of the
@@ -396,7 +396,7 @@ update the package-level cwd variable as intented.
 - Current Go compilers detect that the local "cwd" variable is never used and
 report this as an error, but they are not strictly required to perform this
 check. Furthermore, a minor change, such as the addition of a logging statement
-that refers to the local cwd would defeat the check.
+that refers to the local `cwd` would defeat the check.
 ```
 var cwd string
 
@@ -408,7 +408,7 @@ func init() {
   log.Printf("Working directory = %s", cwd)
 }
 ```
-The global cwd variable remains uninitialized, and the apparently normal log
+The global `cwd` variable remains uninitialized, and the apparently normal log
 output obfuscates the bug.
 
 There are a number of ways to deal with this potential problem. The most direct
@@ -507,7 +507,7 @@ func zero (ptr *[32]byte) {
 ```
 Using a pointer to an array is efficient and allows the called function to
 mutate the caller's variable, but arrays are still inherently inflexible because
-of their fixed size. The zero function will not accept a pointer to a [16]byte
+of their fixed size. The zero function will not accept a pointer to a `[16]byte`
 variable, for example, nor is there any way to add or remove any elements. For
 these reasons, other than special cases, arrays are seldom used as a function
 parameters or results; instead, we use slices.
@@ -635,12 +635,12 @@ to pass pointers around and deal with complicated syntax.
 arrays and slices. But maps are unordered collections, there's no way to predict
 the order in which the key/value pairs will be returned.
 
-- A map is a reference to a hash table, and a map type is written map[K]V, where
-K and V are the type of its keys and values. All of the keys in a given map are
-of the same type, and all of the values are of the same type, but the keys need
-not be of the same type as the values. The key type K must be comparable using
-==, so that the map can test whether a given key is equal to one already within
-it.
+- A map is a reference to a hash table, and a map type is written `map[K]V`,
+where `K` and `V` are the type of its keys and values. All of the keys in a
+given map are of the same type, and all of the values are of the same type, but
+the keys need not be of the same type as the values. The key type K must be
+comparable using ==, so that the map can test whether a given key is equal to
+one already within it.
 
 - The zero value for a map type is nil, that is, a reference to no hash table at
 all.
@@ -671,7 +671,7 @@ if !ok { /* "bob" is not a key in this map; age == 0. */}
 ```
 
 - As with slices, maps cannot be compared to each other; the only legal
-comparison is with nil. To test whether two maps contain the same keys and the
+comparison is with "nil". To test whether two maps contain the same keys and the
 same assoicated values, we must wirte a loop:
 ```
 func equal(x, y map[strint]int) bool {
@@ -722,7 +722,7 @@ func Count(list []string) int {
 
 ### Structs
 - These two statements declare a struct type called Employee and a variable
-called dilbert that is an instance of an Empoyee:
+called dilbert that is an instance of an Employee:
 ```
 type employee struct {
   id int
@@ -921,10 +921,10 @@ if err != nil {
   return nil, fmt.Errorf("parsing %s as HTML: %v", url, err)
 }
 ```
-The fmt.Errorf function formats an error message using ftm.Sprintf and returns a
-new error value.
+The `fmt.Errorf` function formats an error message using `fmt.Sprintf` and
+returns a new error value.
 
-- Because error messages are frequently chained together, message strings should
+Because error messages are frequently chained together, message strings should
 not be capitalized and newlines should be avoided. The resulting errors may be
 long, but they will be self-contained when found by tools like grep.
 
@@ -942,9 +942,9 @@ if err := WaitForServer(url); err != nil {
   fmt.Fprintf(os.Stderr, "Site is down: %v\n", err)
 }
 ```
-A more convenient way to achieve the same effect is to call log.Fatalf. As with
-all the log functions, by default it prefixes the time and data to the error
-message.
+A more convenient way to achieve the same effect is to call `log.Fatalf`. As
+with all the log functions, by default it prefixes the time and data to the
+error message.
 ```
 if err := WaitForServer(url); err != nil {
   log.Fatalf("Site is down: %v\n", err)
