@@ -1045,9 +1045,9 @@ func main() {
   fmt.Println(f()) // "9"
 }
 ```
-The function squares returns another function, of type func() int. A call to
-squares creates a local variable x and returns an anonymous function that, each
-time it is called, increments x and returns its square.
+The function squares returns another function, of type `func() int`. A call to
+squares creates a local variable `x` and returns an anonymous function that,
+each time it is called, increments x and returns its square.
 
 The squares example demonstrates that function values are not just code but can
 have state. The anonymous inner function can access and update the local
@@ -1056,9 +1056,9 @@ are why we classify functions as reference types and why functions are not
 comparable. Function values like these are implemented using a technique called
 closures.
 
-Here we can see that that the lifetime of variable is not determined by its
-scope: the variable x exists after squares has returned within main, even though
-x is hidden inside f.
+Here we can see that the lifetime of variable is not determined by its scope:
+the variable x exists after "squares" has returned within main, even though x
+is hidden inside f.
 
 ### Variadic Functions
 - A variadic function is one that can be called with varying numbers of
