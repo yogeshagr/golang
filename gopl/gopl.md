@@ -1105,9 +1105,9 @@ fmt.Printf("%T\n", g)   // "func([]int)"
 
 ### Deferred function calls
 - A defer statement is an ordinary function or method call prefixed by the
-keyword defer. The function and argument expressions are evaluated when the
+keyword `defer`. The function and argument expressions are evaluated when the
 statement is executed, but the actual call is deferred until the function that
-contains the defer statement has finished, whether normally, by executing a
+contains the `defer` statement has finished, whether normally, by executing a
 return statement or falling off the end, or abnormally, by panicking. Any number
 of calls may be deferred; they are executed in the reverse of the order in which
 they were deferred.
@@ -1118,31 +1118,47 @@ invoked.
 ```
 defer f(g())()
 ```
-In this case the deferred function is the return value of f, so to evaluate the
-deferred function value, f must be called, and to do that g must be called
-prior. The returned value of f will be deferred(not called).
+In this case the deferred function is the return value of "f", so to evaluate
+the deferred function value, "f" must be called, and to do that "g" must be
+called prior. The returned value of "f" will be deferred(not called).
 
 - A defer statement could be used to avoid code duplication.
 
-- A defer statement is often used with paired operations like open and close,
-connect and disconnect, or lock and unlock to ensure that resources are released
-in all cases, no matter how complex the control flow. The right place for a
-defer statement that releases a resource is immediately after the resource has
-been successfully acquire.
+- A defer statement is often used with paired operations like "open" and "close",
+"connect" and "disconnect", or "lock" and "unlock" to ensure that resources are
+released in all cases, no matter how complex the control flow is. The right
+place for a defer statement that releases a resource is immediately after the
+resource has been successfully acquired.
 
 - The defer statement can also be used to pair "on entry" and "on exit" actions
 when debugging a complex function. The bigSlowOperation function below calls
 trace immediately, which does the "on entry" action then returns a function
-value that, when called, does tge corresponding "on exit" action. By deferring a
+value that, when called, does the corresponding "on exit" action. By deferring a
 call to the returned function in this way, we can instrument the entry point and
 all exit points of a function in a single statement and even pass values, like
 the start time, between the two actions. But don't forget the final parentheses
 in the defer statement, or the "on entry" will happen on exit and the on-exit
 action won't happen at all!
+```
+func bigSlowOperation() {
+  defer trace("bigSlowOperation")()
+  // ...lots of work...
+  time.sleep(10 * time.Second)
+}
+```
 
 - Because an anonymous function can access its enclosing function's variables,
 including named results, a deferred anonymous function can observe the
 function's results.
+```
+func double(x int) (resutl int) {
+  defer func() {fmt.Println("double(%d) = %d\n", x, result)}()
+  return x + x
+}
+_ = double(4)
+// Output:
+// "double(4) = 8"
+```
 
 ## ch6: Methods
 - An object is simply a value or variable that has methods, and a method is a
