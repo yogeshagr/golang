@@ -1179,7 +1179,7 @@ func (u *user) changeEmail(email string) {
 }
 ```
 The parameter between the keyword `func` and the function name is called a
-`receiveer` and binds the function to the specific type. When a function has a
+`receiver` and binds the function to the specific type. When a function has a
 receiver, that function is called a `method`.
 
 Value receivers operate on a copy of the value used to make the method call and
@@ -1224,27 +1224,6 @@ the possible values of those variables.
 Second, hiding implementation details prevents clients from depending on things
 that might change, which gives the designer greater freedom to evolve the
 implementation without breaking API compatibility.
-
-```
-type Buffer struct {
-  buf     []byte
-  initial [64]byte
-  /* ... */
-}
-
-// Grow exapnds the buffer's capacity, if necessary,
-// to guarantee space for another n bytes. [...]
-func (b *Buffer) Grow(n int) {
-  if b.buf == nil {
-    b.buf = b.initial[:0] // use preallocated space initially
-  }
-  if len(b.buf) + n > cap(b.buf) {
-    buf := make([]byte, b.Len(), 2*cap(b.buf) + n)
-    copy(buf, b.buf)
-    b.buf = buf
-  }
-}
-```
 
 The third benefit of encapsulation, is that it prevents clients from setting an
 object's variables arbitrarily. Because the object's variables can be set only
