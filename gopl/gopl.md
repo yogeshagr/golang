@@ -1246,7 +1246,7 @@ type, you know nothing about what it is; you know only what it can do, or more
 precisely, what behaviors are provided by its methods.
 
 - An interface type specifies a set of methods that a concrete type must posses
-to be considered an instance of that interface.
+to be considered as an instance of that interface.
 
 ```
 package io
@@ -1289,7 +1289,7 @@ any = new(bytes.Buffer)
 expressed as an interface type. Unlike class-based languages, in which the set
 of interfaces satisfy by a class is explicit, in Go we can define new
 abstractions or groupings of interest when we need them, without modifying the
-declaration if the concrete type. This is particularly useful when the concrete
+declaration of the concrete type. This is particularly useful when the concrete
 type comes from a package written by a different author. Of course, there do
 need to be underlying commonalities in the concrete types.
 
@@ -1352,7 +1352,7 @@ ch := make(chan int) // ch has type 'chan int'
 
 - A channel is a reference to the data structure created by make. When we copy a
 channel or pass one as an argument to a function, we are copying a reference, so
-caller and calle refer to the same data structure. As with other reference
+caller and callee refer to the same data structure. As with other reference
 types, the zero value of a channel is nil.
 
 - Two channel of the same type may be compared using ==. The comparison is true
@@ -1362,21 +1362,21 @@ compared to nil.
 - A channel has two principal operations, send and receive, collectively known
 as communications. A send statement transmits a value from one goroutine,
 through the channel, to another goroutine executing a corresponding receive
-expression. Both operations are written using the <- operator. In a send
-statement, the <- separates the channel and value operands. In a receive
-expression, <- preceds the channel operand. A receive expression whose result is
-not used is a valid statement.
+expression. Both operations are written using the `<-` operator. In a send
+statement, the `<-` separates the channel and value operands. In a receive
+expression, `<-` preceds the channel operand. A receive expression whose result
+is not used is a valid statement.
 ```
 ch <- x     // a send statement
 x = <- ch   // a receive expression in an assignment statement
 <-ch        // a receive statement; result is discarded
 ```
 
-- Channel supports a third operation, close, which sets a flag indicating that
+- Channel supports a third operation, "close", which sets a flag indicating that
 no more values will ever be sent on this channel; subsequent attempts to send
 will panic. Receive operations on a closed channel yield the values that have
 been sent until no more values are left; any receive operations thereafter
-complete immendiately and yield the zero value of the channel's element type.
+complete immediately and yield the zero value of the channel's element type.
 ```
 close(ch)
 ```
@@ -1433,7 +1433,7 @@ to return a "read from closed connection" error.
 - Messages sent over channels have two important aspects. Each message has a
 value, but sometimes the fact of communication and the moment at which it occurs
 are just as important. We call messages events when we wish to stress this
-aspect. When the event carries no additional information, that it, its sole
+aspect. When the event carries no additional information, that is, its sole
 purpose is synchronization, we'll emphasize this by using a channel whose
 element type is struct{}, though it's common to use a channel of bool or int for
 the same purpose since `done <- 1` is shorter than `done <- struct{}{}`.
